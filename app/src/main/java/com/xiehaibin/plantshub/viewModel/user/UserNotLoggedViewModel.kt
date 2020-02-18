@@ -1,4 +1,4 @@
-package com.xiehaibin.plantshub.viewModel
+package com.xiehaibin.plantshub.viewModel.user
 
 import androidx.lifecycle.ViewModel
 

@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/userNotLoggedFragment"
-        android:name="com.xiehaibin.plantshub.view.fragment.UserNotLoggedFragment"
+        android:name="com.xiehaibin.plantshub.view.fragment.user.UserNotLoggedFragment"
         android:label="个人中心_未登录"
         tools:layout="@layout/user_not_logged_fragment">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/userLoggedFragment"
-        android:name="com.xiehaibin.plantshub.view.fragment.UserLoggedFragment"
+        android:name="com.xiehaibin.plantshub.view.fragment.user.UserLoggedFragment"
         android:label="个人中心_已登录"
         tools:layout="@layout/user_logged_fragment">
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/userSetupFragment"
-        android:name="com.xiehaibin.plantshub.view.fragment.UserSetupFragment"
+        android:name="com.xiehaibin.plantshub.view.fragment.user.UserSetupFragment"
         android:label="用户设置"
         tools:layout="@layout/user_setup_fragment">
         <action
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/userMessageFragment"
-        android:name="com.xiehaibin.plantshub.view.fragment.UserMessageFragment"
+        android:name="com.xiehaibin.plantshub.view.fragment.user.UserMessageFragment"
         android:label="用户消息"
         tools:layout="@layout/user_message_fragment">
         <action
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFavoriteFragment"
-        android:name="com.xiehaibin.plantshub.view.fragment.UserFavoriteFragment"
+        android:name="com.xiehaibin.plantshub.view.fragment.user.UserFavoriteFragment"
         android:label="用户收藏"
         tools:layout="@layout/user_favorite_fragment" >
         <action

@@ -1,4 +1,4 @@
-package com.xiehaibin.plantshub.view.fragment
+package com.xiehaibin.plantshub.view.fragment.user
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,12 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 
 import com.xiehaibin.plantshub.R
-import com.xiehaibin.plantshub.viewModel.UserMessageViewModel
+import com.xiehaibin.plantshub.viewModel.user.UserMessageViewModel
 
 class UserMessageFragment : Fragment() {
 
     companion object {
-        fun newInstance() = UserMessageFragment()
+        fun newInstance() =
+            UserMessageFragment()
     }
 
     private val viewModel: UserMessageViewModel by viewModels()

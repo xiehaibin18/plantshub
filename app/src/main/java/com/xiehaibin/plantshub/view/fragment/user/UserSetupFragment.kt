@@ -1,6 +1,5 @@
-package com.xiehaibin.plantshub.view.fragment
+package com.xiehaibin.plantshub.view.fragment.user
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,21 +8,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 
 import com.xiehaibin.plantshub.R
-import com.xiehaibin.plantshub.viewModel.UserLoggedViewModel
+import com.xiehaibin.plantshub.viewModel.user.UserSetupViewModel
 
-class UserLoggedFragment : Fragment() {
+class UserSetupFragment : Fragment() {
 
     companion object {
-        fun newInstance() = UserLoggedFragment()
+        fun newInstance() =
+            UserSetupFragment()
     }
 
-    private val viewModel: UserLoggedViewModel by viewModels()
+    private val viewModel: UserSetupViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.user_logged_fragment, container, false)
+        return inflater.inflate(R.layout.user_setup_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
