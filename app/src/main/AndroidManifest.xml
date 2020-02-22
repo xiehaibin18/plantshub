@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xiehaibin.plantshub">
-
+<!--  网络权限  -->
+<uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_flower_white_100dp"
@@ -10,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.UploadPlantsActivity"></activity>
-        <activity android:name=".view.activity.LoginActivity" />
+        tools:ignore="GoogleAppIndexingWarning"
+        android:usesCleartextTraffic="true">
         <activity android:name=".view.activity.RegisterActivity" />
         <activity
             android:name=".view.activity.IndexActivity"
@@ -25,6 +25,9 @@
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name=".view.activity.LoginActivity"
             android:theme="@style/AppTheme.NoTitle" />
     </application>
 

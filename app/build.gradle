@@ -87,4 +87,23 @@ dependencies {
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
+
+    // volley
+    implementation 'com.android.volley:volley:1.1.1'
+
+    //OKHttp
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // glide图片解析
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // shimmerlayout闪光占位符
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+
+    // 图片缩放
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
 }
