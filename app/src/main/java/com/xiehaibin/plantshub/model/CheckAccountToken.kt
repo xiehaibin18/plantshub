@@ -1,6 +1,5 @@
 package com.xiehaibin.plantshub.model
 
-import com.xiehaibin.plantshub.util.ThreadUtil
 import okhttp3.*
 import java.io.IOException
 
@@ -8,7 +7,7 @@ class CheckAccountToken {
     fun getBoolean(
         accountToken: String,
         url: String,
-        callback: (res: Boolean, err: String) -> Unit
+        callback: (res: Boolean, msg: String) -> Unit
     ) {
         post(accountToken, url, callback)
     }
@@ -16,7 +15,7 @@ class CheckAccountToken {
     private fun post(
         accountToken: String,
         url: String,
-        callback: (res: Boolean, err: String) -> Unit
+        callback: (res: Boolean, msg: String) -> Unit
     ) {
         val client = OkHttpClient()
         val formBody = FormBody.Builder()

@@ -3,12 +3,13 @@ package com.xiehaibin.plantshub.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.databinding.ActivityLoginBinding
 import com.xiehaibin.plantshub.viewModel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.hintResource
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -16,7 +17,13 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+//        setContentView(R.layout.activity_login)
+        // DataBing
+        val binding: ActivityLoginBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_login)
+        binding.data = viewModel
+        binding.lifecycleOwner = this
+
         login_sumbit_button.setOnClickListener {
 
             val accountRegex = Regex(this.getString(R.string.accountRegex))
@@ -35,9 +42,31 @@ class LoginActivity : AppCompatActivity() {
                 login_password_textInputLayout.error = null
             }
 
-            if(login_account_textInputLayout.error === null && login_password_textInputLayout.error === null){
-                toast("succ")
+            if (login_account_textInputLayout.error === null && login_password_textInputLayout.error === null) {
+                login_sumbit_button.isEnabled = false
+                doAsync {
+                    viewModel.checkLogin(fun(res, msg) {
+                        if (res) {
+                            startActivity<MainActivity>()
+                            finish()
+                        } else {
+                            uiThread {
+                                login_sumbit_button.isEnabled = true
+                                toast(msg.toString())
+                            }
+                        }
+                    })
+                }
             }
+        }
+
+        login_register_hint.setOnClickListener {
+            startActivity<RegisterActivity>()
+        }
+
+        login_tourists_hint.setOnClickListener {
+            viewModel.setAccountToken("tourists")
+            startActivity<MainActivity>()
         }
     }
 }

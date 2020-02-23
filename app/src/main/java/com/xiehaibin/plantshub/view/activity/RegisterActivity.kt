@@ -16,10 +16,5 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        // 异步操作结束
-        android.os.Handler().postDelayed(Runnable {
-            startActivity<MainActivity>()
-            finish()
-        },3000)
     }
 }

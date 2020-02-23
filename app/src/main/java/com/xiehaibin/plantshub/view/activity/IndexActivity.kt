@@ -23,7 +23,7 @@ class IndexActivity : AppCompatActivity() {
         setContentView(R.layout.activity_index)
         // 子线程执行
         doAsync {
-            viewModel.checkWebAccountToken(fun(res: Int?, err: String?) {
+            viewModel.checkWebAccountToken(fun(res: Int?, msg: String?) {
                 when (res) {
                     0 -> {
                         startActivity<MainActivity>()
@@ -31,7 +31,7 @@ class IndexActivity : AppCompatActivity() {
                     }
                     1 -> {
                         uiThread {
-                            toast("请确保在有网络的情况下使用，${err}")
+                            toast("请确保在有网络的情况下使用，${msg}")
                         }
                     }
                     2 -> {

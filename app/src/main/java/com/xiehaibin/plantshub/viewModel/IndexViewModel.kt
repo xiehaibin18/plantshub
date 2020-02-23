@@ -20,20 +20,20 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
     // 获取本地AccountToken
     private fun getLocalAccountToken(): String = shp.getString("AccountToken", defValue)
 
-    fun checkWebAccountToken(callback: (res: Int?, err: String?) -> Unit) {
+    fun checkWebAccountToken(callback: (res: Int?, msg: String?) -> Unit) {
         // 验证本地AccountToken,有则验证，无则跳转登录界面
         if (checkLocalAccountToken()) {
             // 获取本地验证本地AccountToken
             val accountToken: String = getLocalAccountToken()
             // 获取url
             val url: String = CommonData.getInstance().getChkAccountTokenUrl()
-            var checkAccountToken = CheckAccountToken()
+            val checkAccountToken = CheckAccountToken()
             // 获取验证结果
-            checkAccountToken.getBoolean(accountToken, url, fun(res: Boolean, err: String) {
+            checkAccountToken.getBoolean(accountToken, url, fun(res: Boolean, msg: String) {
                 if (res) {
-                    callback(0, null)
+                    callback(0, msg)
                 } else {
-                    callback(1, err)
+                    callback(1, msg)
                 }
             })
         } else {

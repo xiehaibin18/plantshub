@@ -1,5 +1,7 @@
 package com.xiehaibin.plantshub.model
 
+import com.google.gson.Gson
+import com.xiehaibin.plantshub.model.data.checkLoginData
 import okhttp3.*
 import java.io.IOException
 
@@ -8,7 +10,7 @@ class CheckLogin {
         account: String,
         password: String,
         url: String,
-        callback: (resBoolean: Boolean, msg: String) -> Unit
+        callback: (resBoolean: Boolean, err_code: Int, msg: String) -> Unit
     ) {
         _post(account, password, url, callback)
     }
@@ -17,7 +19,7 @@ class CheckLogin {
         account: String,
         password: String,
         url: String,
-        callback: (resBoolean: Boolean, msg: String) -> Unit
+        callback: (resBoolean: Boolean, err_code: Int, msg: String) -> Unit
     ) {
         val client = OkHttpClient()
         val formBody = FormBody.Builder()
@@ -30,11 +32,16 @@ class CheckLogin {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                callback(false, e.toString())
+                callback(false, 1, e.toString())
             }
 
             override fun onResponse(call: Call, response: Response) {
-                callback(true, response.body!!.string())
+                val checkLoginData =
+                    Gson().fromJson(response.body!!.string(), checkLoginData::class.java)
+                val res: String
+                res =
+                    if (checkLoginData.err_code == 0) checkLoginData.account_token.toString() else checkLoginData.message.toString()
+                callback(true, checkLoginData.err_code, res)
             }
 
         })

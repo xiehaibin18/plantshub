@@ -10,4 +10,5 @@
     <string name="login_password_textInputLayout_error">请输入密码，长度在 4 到 12 个数字或者字母</string>
     <string name="accountRegex">[a-zA-Z0-9]{4,12}</string>
     <string name="passwordRegex">[a-zA-Z0-9]{4,12}</string>
+    <string name="login_tourists_text">游客登陆</string>
 </resources>
