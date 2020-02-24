@@ -1,9 +1,12 @@
 package com.xiehaibin.plantshub.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.CheckAccountToken
 import com.xiehaibin.plantshub.model.data.CommonData
@@ -21,50 +24,30 @@ class IndexActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
-        // 子线程执行
-        doAsync {
-            viewModel.checkWebAccountToken(fun(res: Int?, msg: String?) {
-                when (res) {
-                    0 -> {
-                        startActivity<MainActivity>()
-                        finish()
-                    }
-                    1 -> {
-                        uiThread {
-                            toast("请确保在有网络的情况下使用，${msg}")
-                        }
-                    }
-                    2 -> {
-                        startActivity<LoginActivity>()
-                        finish()
-                    }
+        val statusCodeObserver = Observer<Int> {
+            // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
+            when (it) {
+                0 -> {
+                    startActivity<MainActivity>()
+                    finish()
                 }
-            })
+                1, 2, 4 -> {
+                    startActivity<LoginActivity>()
+                    finish()
+                }
+                3 -> {
+                    val intent: Intent = Intent()
+                    intent.setClass(this, MainActivity::class.java)
+//                    var bundle: Bundle = Bundle()
+//                    bundle.putString("msg", "123")
+//                    intent.putExtras(bundle)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
-//        doAsync {
-//            // 验证本地AccountToken,有则验证，无则跳转登录界面
-//            if (viewModel.checkLocalAccountToken()) {
-//                // 获取本地验证本地AccountToken
-//                val accountToken: String = viewModel.getLocalAccountToken()
-//                // 获取url
-//                val url: String = CommonData.getInstance().getChkAccountTokenUrl()
-//                var checkAccountToken = CheckAccountToken()
-//                // 获取验证结果
-//                checkAccountToken.getBoolean(accountToken, url, fun(res: Boolean, err: String) {
-//                    if (res) {
-//                        startActivity<MainActivity>()
-//                        finish()
-//                    } else {
-//                        uiThread {
-//                            toast("请确保在有网络的情况下使用，${err}")
-//                        }
-//                    }
-//                })
-//            } else {
-//                startActivity<LoginActivity>()
-//                finish()
-//            }
-//        }
+        viewModel.status_code.observe(this, statusCodeObserver)
+        viewModel.checkWebAccountToken()
         // 异步操作结束
 //        android.os.Handler().postDelayed(Runnable {
 //            startActivity<MainActivity>()
@@ -86,6 +69,4 @@ class IndexActivity : AppCompatActivity() {
 //        )
 //        queue.add(stringRequest)
     }
-
-
 }

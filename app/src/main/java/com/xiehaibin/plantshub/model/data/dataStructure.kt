@@ -5,3 +5,8 @@ data class checkLoginData(
     val message: String?,
     val account_token: String?
 )
+
+data class checkAccountToken(
+    val err_code: Int,
+    val message: String
+)

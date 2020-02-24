@@ -4,9 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.CheckAccountToken
 import com.xiehaibin.plantshub.model.data.CommonData
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class IndexViewModel(application: Application) : AndroidViewModel(application) {
     var defValue = application.resources.getString(R.string.app_defValue)
@@ -14,13 +17,22 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
     private val shp: SharedPreferences =
         getApplication<Application>().getSharedPreferences(shpName, Context.MODE_PRIVATE)
 
+    // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
+    val status_code: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
+    }
+    // message：返回消息
+    val message: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
     // 验证本地AccountToken是否为空
     private fun checkLocalAccountToken(): Boolean = shp.contains("AccountToken")
 
     // 获取本地AccountToken
     private fun getLocalAccountToken(): String = shp.getString("AccountToken", defValue)
 
-    fun checkWebAccountToken(callback: (res: Int?, msg: String?) -> Unit) {
+    fun checkWebAccountToken() {
         // 验证本地AccountToken,有则验证，无则跳转登录界面
         if (checkLocalAccountToken()) {
             // 获取本地验证本地AccountToken
@@ -29,15 +41,17 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
             val url: String = CommonData.getInstance().getChkAccountTokenUrl()
             val checkAccountToken = CheckAccountToken()
             // 获取验证结果
-            checkAccountToken.getBoolean(accountToken, url, fun(res: Boolean, msg: String) {
-                if (res) {
-                    callback(0, msg)
-                } else {
-                    callback(1, msg)
-                }
-            })
+            doAsync {
+                checkAccountToken.post(accountToken, url, fun(err_code, msg) {
+                    // err_code: 0验证成功，1无，2数据出错，3网络请求失败
+                    uiThread {
+                        message.value = msg
+                        status_code.value = err_code
+                    }
+                })
+            }
         } else {
-            callback(2, null)
+            status_code.value = 4
         }
     }
 }
