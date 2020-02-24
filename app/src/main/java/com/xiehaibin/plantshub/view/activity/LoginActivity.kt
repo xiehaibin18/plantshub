@@ -54,11 +54,6 @@ class LoginActivity : AppCompatActivity() {
         }
         viewModel.checkLoginStatus.observe(this,checkLoginStatusObserver)
 
-        // 点击登录按钮
-        login_submit_button.setOnClickListener {
-            viewModel.clickLoginSubmitButton()
-        }
-
         // 点击注册
         login_register_hint.setOnClickListener {
             startActivity<RegisterActivity>()

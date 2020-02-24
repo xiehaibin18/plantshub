@@ -62,7 +62,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+            app:layout_constraintTop_toTopOf="@+id/guideline5"
+            android:onClick="@{ () -> data.clickLoginSubmitButton() }"/>
 
         <TextView
             android:id="@+id/login_register_hint"
