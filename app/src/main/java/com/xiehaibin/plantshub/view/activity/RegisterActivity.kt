@@ -14,6 +14,7 @@ import com.xiehaibin.plantshub.viewModel.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -73,5 +74,23 @@ class RegisterActivity : AppCompatActivity() {
             register_phone_textInputLayout.error = it
         }
         viewModel.phoneErrorHint.observe(this, phoneErrorHintObserver)
+
+        // 观察submitButtonIsEnabled变化
+        val submitButtonIsEnabledObserver = Observer<Boolean> {
+            register_submit_button.isEnabled = it
+        }
+        viewModel.submitButtonIsEnabled.observe(this, submitButtonIsEnabledObserver)
+
+        // 观察statusCode变化
+        val statusCodeObserver = Observer<Int> {
+            if (it == 0) {
+                startActivity<MainActivity>()
+                finish()
+            } else {
+                viewModel.submitButtonIsEnabled.value = true
+                toast(viewModel.message.value.toString())
+            }
+        }
+        viewModel.status_code.observe(this,statusCodeObserver)
     }
 }

@@ -15,6 +15,8 @@ class CommonData private constructor(){
     fun getChkAccountTokenUrl() = baseUrl.plus("/api/CheckAccountToken")
     // 获取验证AccountToken的url
     fun getChkLoginUrl() = baseUrl.plus("/api/CheckLogin")
+    // 获取验证AccountToken的url
+    fun getUserRegisterUrl() = baseUrl.plus("/api/UserRegister")
 
     private var accountToken: String = ""
 

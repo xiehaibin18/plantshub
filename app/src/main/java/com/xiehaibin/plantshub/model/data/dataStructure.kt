@@ -1,12 +1,18 @@
 package com.xiehaibin.plantshub.model.data
 
-data class checkLoginData(
+data class CheckLoginData(
     val err_code: Int,
     val message: String?,
     val account_token: String?
 )
 
-data class checkAccountToken(
+data class CheckAccountTokenData(
     val err_code: Int,
     val message: String
+)
+
+data class UserRegisterData(
+    val err_code: Int,
+    val message: String?,
+    val account_token: String?
 )

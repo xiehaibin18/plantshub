@@ -43,7 +43,7 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
             // 获取验证结果
             doAsync {
                 checkAccountToken.post(accountToken, url, fun(err_code, msg) {
-                    // err_code: 0验证成功，1无，2数据出错，3网络请求失败
+                    // err_code: 0验证成功，1无，2数据出错，3网络请求失败，400数据传输失败
                     uiThread {
                         message.value = msg
                         status_code.value = err_code
