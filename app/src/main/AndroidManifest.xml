@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.activity.RegisterActivity" />
         <activity
             android:name=".view.activity.IndexActivity"
             android:theme="@style/AppTheme.Fullscreen">
@@ -28,6 +27,8 @@
             android:theme="@style/AppTheme.NoTitle" />
         <activity
             android:name=".view.activity.LoginActivity"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity android:name=".view.activity.RegisterActivity"
             android:theme="@style/AppTheme.NoTitle" />
     </application>
 

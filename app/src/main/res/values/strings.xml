@@ -4,11 +4,17 @@
     <string name="app_defValue"></string>
     <string name="app_login_account_editText_hint">请输入账号</string>
     <string name="app_login_password_editText_hint">请输入密码</string>
-    <string name="login_sumbit_botton_text">登录</string>
+    <string name="app_login_submit_button_text">登录</string>
     <string name="app_login_register_hint">还没有账号？点击注册</string>
-    <string name="login_account_textInputLayout_error">请输入账户名，长度在 4 到 12 个数字或者字母</string>
-    <string name="login_password_textInputLayout_error">请输入密码，长度在 4 到 12 个数字或者字母</string>
-    <string name="accountRegex">[a-zA-Z0-9]{4,12}</string>
-    <string name="passwordRegex">[a-zA-Z0-9]{4,12}</string>
-    <string name="login_tourists_text">游客登陆</string>
+    <string name="app_login_account_textInputLayout_error">请输入账户名，长度在 4 到 12 个数字或者字母</string>
+    <string name="app_login_password_textInputLayout_error">请输入密码，长度在 4 到 12 个数字或者字母</string>
+    <string name="app_accountRegex">[a-zA-Z0-9]{4,12}</string>
+    <string name="app_passwordRegex">[a-zA-Z0-9]{4,12}</string>
+    <string name="app_login_tourists_text">游客登陆</string>
+    <string name="app_register_submit_button" >注册</string>
+    <string name="app_register_nickname_editText_hint" >请输入昵称</string>
+    <string name="app_register_account_editText_hint" >请输入用户名</string>
+    <string name="app_register_password_editText_hint" >请输入密码</string>
+    <string name="app_register_pwdcheck_editText_hint" >请再次输入密码</string>
+    <string name="app_register_phone_editText_hint" >请输入手机号码</string>
 </resources>

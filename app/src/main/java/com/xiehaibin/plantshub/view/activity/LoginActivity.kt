@@ -23,21 +23,25 @@ class LoginActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.data = viewModel
         binding.lifecycleOwner = this
+
         // 观察accountErrorHint变化
         val accountErrorHintObserver = Observer<String> {
             login_account_textInputLayout.error = it
         }
         viewModel.accountErrorHint.observe(this, accountErrorHintObserver)
+
         // 观察passwordErrorHint变化
         val passwordErrorHintObserver = Observer<String> {
             login_password_textInputLayout.error = it
         }
         viewModel.passwordErrorHint.observe(this, passwordErrorHintObserver)
+
         // 观察submitButtonIsEnabled变化
         val submitButtonIsEnabledObserver = Observer<Boolean> {
             login_submit_button.isEnabled = it
         }
         viewModel.submitButtonIsEnabled.observe(this, submitButtonIsEnabledObserver)
+
         // 观察checkLoginStatus变化
         val checkLoginStatusObserver = Observer<Boolean> {
             if (it) {
@@ -49,15 +53,18 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         viewModel.checkLoginStatus.observe(this,checkLoginStatusObserver)
+
         // 点击登录按钮
         login_submit_button.setOnClickListener {
             viewModel.clickLoginSubmitButton()
         }
 
+        // 点击注册
         login_register_hint.setOnClickListener {
             startActivity<RegisterActivity>()
         }
 
+        // 点击游客登陆
         login_tourists_hint.setOnClickListener {
             viewModel.setAccountToken("tourists")
             startActivity<MainActivity>()

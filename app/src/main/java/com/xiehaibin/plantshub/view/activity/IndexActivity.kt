@@ -24,6 +24,7 @@ class IndexActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
+        // 观察状态码变化
         val statusCodeObserver = Observer<Int> {
             // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
             when (it) {
@@ -47,26 +48,12 @@ class IndexActivity : AppCompatActivity() {
             }
         }
         viewModel.status_code.observe(this, statusCodeObserver)
+        // 联网验证AccountToken
         viewModel.checkWebAccountToken()
         // 异步操作结束
 //        android.os.Handler().postDelayed(Runnable {
 //            startActivity<MainActivity>()
 //            finish()
 //        },100)
-        // volley demo
-//        val queue = Volley.newRequestQueue(this)
-//        val baseUrl: String = "http://10.0.2.2:3000"
-//        var url: String = "/api/test"
-//        val stringRequest = StringRequest(
-//            Request.Method.GET,
-//            baseUrl.plus(url),
-//            Response.Listener<String> { response ->
-//                viewModel.resData.value = response
-//            },
-//            Response.ErrorListener {
-//                viewModel.resData.value = "error"
-//            }
-//        )
-//        queue.add(stringRequest)
     }
 }

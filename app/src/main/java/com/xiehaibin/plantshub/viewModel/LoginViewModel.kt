@@ -69,7 +69,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 if (resBoolean) {
                     // 网络请求成功
                     return if (err_code == 0) { // 保存AccountToken
-                        setAccountToken(msg)
+                        this.setAccountToken(msg)
                         callback(true, null)
                     } else {
                         callback(false, msg)
@@ -89,18 +89,18 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clickLoginSubmitButton() {
 
-        val accountRegex = Regex(getApplication<Application>().getString(R.string.accountRegex))
+        val accountRegex = Regex(getApplication<Application>().getString(R.string.app_accountRegex))
         if (!accountRegex.matches(accountValue.value ?: "")) {
             accountErrorHint.value =
-                getApplication<Application>().getString(R.string.login_account_textInputLayout_error)
+                getApplication<Application>().getString(R.string.app_login_account_textInputLayout_error)
         } else {
             accountErrorHint.value = null
         }
 
-        val passwordRegex = Regex(getApplication<Application>().getString(R.string.passwordRegex))
+        val passwordRegex = Regex(getApplication<Application>().getString(R.string.app_passwordRegex))
         if (!passwordRegex.matches(passwordValue.value ?: "")) {
             passwordErrorHint.value =
-                getApplication<Application>().getString(R.string.login_password_textInputLayout_error)
+                getApplication<Application>().getString(R.string.app_login_password_textInputLayout_error)
         } else {
             passwordErrorHint.value = null
         }
