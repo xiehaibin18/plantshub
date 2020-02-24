@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.Observer
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.databinding.ActivityLoginBinding
 import com.xiehaibin.plantshub.viewModel.LoginViewModel
@@ -23,41 +23,35 @@ class LoginActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.data = viewModel
         binding.lifecycleOwner = this
-
-        login_sumbit_button.setOnClickListener {
-
-            val accountRegex = Regex(this.getString(R.string.accountRegex))
-            if (!accountRegex.matches(login_account_editText.text.toString())) {
-                login_account_textInputLayout.error =
-                    this.getString(R.string.login_account_textInputLayout_error)
+        // 观察accountErrorHint变化
+        val accountErrorHintObserver = Observer<String> {
+            login_account_textInputLayout.error = it
+        }
+        viewModel.accountErrorHint.observe(this, accountErrorHintObserver)
+        // 观察passwordErrorHint变化
+        val passwordErrorHintObserver = Observer<String> {
+            login_password_textInputLayout.error = it
+        }
+        viewModel.passwordErrorHint.observe(this, passwordErrorHintObserver)
+        // 观察submitButtonIsEnabled变化
+        val submitButtonIsEnabledObserver = Observer<Boolean> {
+            login_submit_button.isEnabled = it
+        }
+        viewModel.submitButtonIsEnabled.observe(this, submitButtonIsEnabledObserver)
+        // 观察checkLoginStatus变化
+        val checkLoginStatusObserver = Observer<Boolean> {
+            if (it) {
+                startActivity<MainActivity>()
+                finish()
             } else {
-                login_account_textInputLayout.error = null
+                viewModel.submitButtonIsEnabled.value = true
+                toast(viewModel.checkLoginMessage.value.toString())
             }
-
-            val passwordRegex = Regex(this.getString(R.string.passwordRegex))
-            if (!passwordRegex.matches(login_password_editText.text.toString())) {
-                login_password_textInputLayout.error =
-                    this.getString(R.string.login_password_textInputLayout_error)
-            } else {
-                login_password_textInputLayout.error = null
-            }
-
-            if (login_account_textInputLayout.error === null && login_password_textInputLayout.error === null) {
-                login_sumbit_button.isEnabled = false
-                doAsync {
-                    viewModel.checkLogin(fun(res, msg) {
-                        if (res) {
-                            startActivity<MainActivity>()
-                            finish()
-                        } else {
-                            uiThread {
-                                login_sumbit_button.isEnabled = true
-                                toast(msg.toString())
-                            }
-                        }
-                    })
-                }
-            }
+        }
+        viewModel.checkLoginStatus.observe(this,checkLoginStatusObserver)
+        // 点击登录按钮
+        login_submit_button.setOnClickListener {
+            viewModel.clickLoginSubmitButton()
         }
 
         login_register_hint.setOnClickListener {
