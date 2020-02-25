@@ -2,6 +2,8 @@ package com.xiehaibin.plantshub.view.fragment
 
 //import com.android.volley.Request
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +14,11 @@ import com.google.gson.Gson
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.util.ThreadUtil
+import com.xiehaibin.plantshub.view.activity.CameraActivity
 import com.xiehaibin.plantshub.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import okhttp3.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.json.JSONObject
 import java.io.IOException
 
@@ -37,26 +41,9 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         home_textView.text = CommonData.getInstance().getAccountToken()
-//        viewModel.accString.observe(this, Observer {
-//            home_textView.text = it
-//        })
-//        viewModel.accString.value?:viewModel.fetchData()
-
-        // volley demo
-//        val queue = Volley.newRequestQueue(activity)
-        val baseUrl: String = "http://10.0.2.2:3000"
-        var url: String = "/api/adminGetLocationData"
-//        val stringRequest = StringRequest(
-//            Request.Method.POST,
-//            baseUrl.plus(url),
-//            Response.Listener<String> { response ->
-//                home_textView.text = response
-//            },
-//            Response.ErrorListener { error ->
-//                home_textView.text = error.toString()
-//            }
-//        )
-//        queue.add(stringRequest)
+        home_identify_button.setOnClickListener {
+            startActivity<CameraActivity>()
+        }
 
         // imageLoader
 //        val imageLoader: ImageLoader = ImageLoader(queue,object : ImageLoader.ImageCache {
@@ -79,39 +66,13 @@ class HomeFragment : Fragment() {
 ////            }
 ////        })
 
-        // OKHttp
-        fun runOkhttp() {
-            val client = OkHttpClient()
-//        val MEDIA_TYPE_MARKDOWN = "application/json; charset=utf-8".toMediaType()
-//        var json: JSONObject = JSONObject()
-//        json.put("value",1)
-            val formBody = FormBody.Builder()
-                .add("type", "1")
-                .add("adad", "adadad")
-                .build()
-            val request = Request
-                .Builder()
-                .url(baseUrl.plus(url))
-                .post(formBody)
-                .build()
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    home_textView.text = e.toString()
-                }
-
-                override fun onResponse(call: Call, response: okhttp3.Response) {
-//                home_textView.text = response?.body?.string()
-                    ThreadUtil.runOnMainThread(Runnable {
-                        home_textView.text = response.body!!.string()
-                    })
-                }
-
-            })
-        }
-
         // swiperRefreshLayout
         swiperRefreshLayout.setOnRefreshListener {
-            runOkhttp()
+            home_textView.text = CommonData.getInstance().getPath()
+            if(CommonData.getInstance().getPath().isNotEmpty()){
+                val myBitmap: Bitmap = BitmapFactory.decodeFile(CommonData.getInstance().getPath())
+                home_imageView.setImageBitmap(myBitmap)
+            }
             if (swiperRefreshLayout.isRefreshing) {
                 swiperRefreshLayout.isRefreshing = false
             }

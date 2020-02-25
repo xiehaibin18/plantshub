@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xiehaibin.plantshub">
-<!--  网络权限  -->
-<uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 网络权限 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--  使用相机  -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_flower_white_100dp"
@@ -11,8 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".view.activity.IndexActivity"
             android:theme="@style/AppTheme.Fullscreen">
@@ -28,8 +31,11 @@
         <activity
             android:name=".view.activity.LoginActivity"
             android:theme="@style/AppTheme.NoTitle" />
-        <activity android:name=".view.activity.RegisterActivity"
+        <activity
+            android:name=".view.activity.RegisterActivity"
             android:theme="@style/AppTheme.NoTitle" />
+        <activity android:name=".view.activity.CameraActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>
