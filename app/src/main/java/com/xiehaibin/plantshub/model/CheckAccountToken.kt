@@ -33,8 +33,12 @@ class CheckAccountToken {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val checkAccountTokenData = Gson().fromJson(response.body!!.string(), CheckAccountTokenData::class.java)
-                callback(checkAccountTokenData.err_code, checkAccountTokenData.message)
+                try {
+                    val checkAccountTokenData = Gson().fromJson(response.body!!.string(), CheckAccountTokenData::class.java)
+                    callback(checkAccountTokenData.err_code, checkAccountTokenData.message)
+                } catch (e: Exception) {
+                    callback(500,"服务器出错")
+                }
             }
 
         })

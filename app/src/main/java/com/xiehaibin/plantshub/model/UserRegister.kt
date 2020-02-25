@@ -42,11 +42,15 @@ class UserRegister {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val userRegisterData = Gson().fromJson(response.body!!.string(), UserRegisterData::class.java)
-                if (userRegisterData.err_code == 0) {
-                    _callback(userRegisterData.err_code, userRegisterData.account_token!!)
-                } else {
-                    _callback(userRegisterData.err_code, userRegisterData.message!!)
+                try {
+                    val userRegisterData = Gson().fromJson(response.body!!.string(), UserRegisterData::class.java)
+                    if (userRegisterData.err_code == 0) {
+                        _callback(userRegisterData.err_code, userRegisterData.account_token!!)
+                    } else {
+                        _callback(userRegisterData.err_code, userRegisterData.message!!)
+                    }
+                } catch (e: Exception) {
+                    _callback(500,"服务器出错")
                 }
             }
 

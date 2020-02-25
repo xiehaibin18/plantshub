@@ -36,12 +36,17 @@ class CheckLogin {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val checkLoginData =
-                    Gson().fromJson(response.body!!.string(), CheckLoginData::class.java)
-                val res: String
-                res =
-                    if (checkLoginData.err_code == 0) checkLoginData.account_token.toString() else checkLoginData.message.toString()
-                _callback(true, checkLoginData.err_code, res)
+                try {
+                    val checkLoginData =
+                        Gson().fromJson(response.body!!.string(), CheckLoginData::class.java)
+                    val res: String
+                    res =
+                        if (checkLoginData.err_code == 0) checkLoginData.account_token.toString() else checkLoginData.message.toString()
+                    _callback(true, checkLoginData.err_code, res)
+                } catch (e: Exception) {
+                    _callback(false, 500,"服务器出错")
+                }
+
             }
 
         })
