@@ -16,6 +16,7 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
     private var shpName: String = "user_info"
     private val shp: SharedPreferences =
         getApplication<Application>().getSharedPreferences(shpName, Context.MODE_PRIVATE)
+    private val editor: SharedPreferences.Editor = shp.edit()
 
     // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
     val status_code: MutableLiveData<Int> by lazy {
@@ -32,6 +33,12 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
     // 获取本地AccountToken
     private fun getLocalAccountToken(): String = shp.getString("AccountToken", defValue)
 
+    private fun setAccountToken(accountToken: String) {
+        editor.putString("AccountToken", accountToken)
+        editor.apply()
+        CommonData.getInstance().setAccountToken(accountToken)
+    }
+
     fun checkWebAccountToken() {
         // 验证本地AccountToken,有则验证，无则跳转登录界面
         if (checkLocalAccountToken()) {
@@ -45,6 +52,9 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
                 checkAccountToken.post(accountToken, url, fun(err_code, msg) {
                     // err_code: 0验证成功，1无，2数据出错，3网络请求失败，400数据传输失败
                     uiThread {
+                        if (err_code == 0) {
+                            setAccountToken(accountToken)
+                        }
                         message.value = msg
                         status_code.value = err_code
                     }
