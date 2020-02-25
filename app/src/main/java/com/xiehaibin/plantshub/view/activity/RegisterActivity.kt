@@ -81,16 +81,22 @@ class RegisterActivity : AppCompatActivity() {
         }
         viewModel.submitButtonIsEnabled.observe(this, submitButtonIsEnabledObserver)
 
-        // 观察statusCode变化
+        // 观察statusCode变化，0验证成功，1手机号码已注册，400客户端数据传输失败，500服务器端错误
         val statusCodeObserver = Observer<Int> {
             if (it == 0) {
                 startActivity<MainActivity>()
                 finish()
+                LoginActivity.fa!!.finish()
             } else {
                 viewModel.submitButtonIsEnabled.value = true
                 toast(viewModel.message.value.toString())
             }
         }
         viewModel.status_code.observe(this,statusCodeObserver)
+
+        // 返回按钮
+        register_back_button.setOnClickListener {
+            finish()
+        }
     }
 }

@@ -1,23 +1,30 @@
 package com.xiehaibin.plantshub.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.databinding.ActivityLoginBinding
 import com.xiehaibin.plantshub.viewModel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.*
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
+
 
 class LoginActivity : AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
+    companion object{
+        var fa: Activity? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_login)
+        fa = this
         // DataBing
         val binding: ActivityLoginBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_login)

@@ -38,7 +38,7 @@ class UserRegister {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                _callback(1, e.toString())
+                _callback(500, e.toString())
             }
 
             override fun onResponse(call: Call, response: Response) {

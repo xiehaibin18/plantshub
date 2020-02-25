@@ -56,7 +56,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     val phoneErrorHint: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
+    // status_code: 0验证成功
     val status_code: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
@@ -134,10 +134,11 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             // 获取注册结果
             doAsync {
                 userRegister.post(account, password, nickname, phone, url, fun(err_code, msg) {
-                    // err_code: 0验证成功，1无，2数据出错，3网络请求失败，400数据传输失败
+                    // err_code: 0验证成功，1手机号码已注册，400客户端数据传输失败，500服务器端错误
                     uiThread {
-                        if (err_code == 0) {
-                            setAccountToken(msg)
+                        when (err_code) {
+                            0 -> setAccountToken(msg)
+                            1 -> phoneErrorHint.value = "手机号码已注册"
                         }
                         message.value = msg
                         status_code.value = err_code
