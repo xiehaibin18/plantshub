@@ -16,3 +16,9 @@ data class UserRegisterData(
     val message: String?,
     val account_token: String?
 )
+
+data class PictureRecognitionData(
+    val code: Int,
+    val data: String?,
+    val err: String?
+)

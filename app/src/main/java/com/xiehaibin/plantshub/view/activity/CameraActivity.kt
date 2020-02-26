@@ -9,12 +9,10 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Size
 import android.graphics.Matrix
 import android.media.Image
-import android.util.DisplayMetrics
-import android.util.Log
-import android.util.Rational
+import android.os.Handler
+import android.util.*
 import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
@@ -25,11 +23,19 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
+import com.xiehaibin.plantshub.model.PictureRecognition
 import com.xiehaibin.plantshub.model.data.CommonData
+import com.xiehaibin.plantshub.util.Base64Util
+import com.xiehaibin.plantshub.util.FileUtil
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.image
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileInputStream
 import java.nio.ByteBuffer
 import java.util.Collections.max
 import java.util.Collections.min
@@ -132,20 +138,18 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                     }
 
                     override fun onImageSaved(file: File) {
-                        val msg = "Photo capture succeeded: ${file.absolutePath}"
-                        Log.d("CameraXApp", msg)
-                        if(file.exists()){
+                        if (file.exists()) {
                             CommonData.getInstance().setPath(file.absolutePath)
                         }
                         viewFinder.post {
-                            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                             camera_textureView.isVisible = false
                             camera_capture.isVisible = false
                             camera_imageView.isVisible = true
                             camera_upload_button.isVisible = true
                             camera_cancel_button.isVisible = true
                             if (CommonData.getInstance().getPath().isNotEmpty()) {
-                                var myBitmap: Bitmap = BitmapFactory.decodeFile(CommonData.getInstance().getPath())
+                                var myBitmap: Bitmap =
+                                    BitmapFactory.decodeFile(CommonData.getInstance().getPath())
                                 val m: Matrix = Matrix()
                                 m.postRotate(90F)
                                 myBitmap = Bitmap.createBitmap(
@@ -171,6 +175,44 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
             camera_imageView.isVisible = false
             camera_upload_button.isVisible = false
             camera_cancel_button.isVisible = false
+        }
+
+        camera_upload_button.setOnClickListener {
+            camera_upload_button.isEnabled = false
+            camera_cancel_button.isEnabled = false
+            try {
+                val filePath = CommonData.getInstance().getPath()
+                val imgData = FileUtil.readFileByBytes(filePath)
+                val imgStr = Base64Util.encode(imgData)
+                doAsync {
+                    PictureRecognition().post(
+                        "client",
+                        imgStr,
+                        CommonData.getInstance().getPictureRecognitionUrl(),
+                        fun(err_code, msg) {
+                            uiThread {
+                                camera_upload_button.isEnabled = true
+                                camera_cancel_button.isEnabled = true
+                                toast("${err_code}:${msg}")
+                            }
+                        })
+                }
+            } catch (e: Exception) {
+                toast("error:${e}")
+            }
+
+        }
+    }
+
+    private fun convertImageFileToBase64(imageFile: File): String {
+        return FileInputStream(imageFile).use { inputStream ->
+            ByteArrayOutputStream().use { outputStream ->
+                Base64OutputStream(outputStream, Base64.DEFAULT).use { base64FilterStream ->
+                    inputStream.copyTo(base64FilterStream)
+                    base64FilterStream.close() // This line is required, see comments
+                    outputStream.toString()
+                }
+            }
         }
     }
 

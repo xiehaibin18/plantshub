@@ -18,21 +18,19 @@ class CommonData private constructor(){
     fun getChkLoginUrl() = baseUrl.plus("/api/CheckLogin")
     // 获取验证AccountToken的url
     fun getUserRegisterUrl() = baseUrl.plus("/api/UserRegister")
+    // 获取pictureRecognition的url
+    fun getPictureRecognitionUrl() = baseUrl.plus("/api/pictureRecognition")
 
     private var accountToken: String = ""
-
     fun setAccountToken(value: String) {
         accountToken = value
     }
-
     fun getAccountToken(): String = accountToken
 
-    private var Path: String = ""
-
+    private var path: String = ""
     fun setPath(value: String) {
-        Path = value
+        path = value
     }
-
-    fun getPath(): String = Path
+    fun getPath(): String = path
 
 }
