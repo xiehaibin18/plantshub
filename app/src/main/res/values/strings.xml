@@ -26,4 +26,7 @@
     <string name="app_register_password_editText_hint">请输入密码</string>
     <string name="app_register_pwdcheck_editText_hint">请再次输入密码</string>
     <string name="app_register_phone_editText_hint">请输入手机号码</string>
+    <string name="camera_imageView_contentDescription">相机视图</string>
+    <string name="app_camera_upload_button_text">识别</string>
+    <string name="app_camera_cancel_button_text">取消</string>
 </resources>

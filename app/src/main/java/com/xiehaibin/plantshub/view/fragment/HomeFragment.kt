@@ -4,6 +4,7 @@ package com.xiehaibin.plantshub.view.fragment
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,11 +69,7 @@ class HomeFragment : Fragment() {
 
         // swiperRefreshLayout
         swiperRefreshLayout.setOnRefreshListener {
-            home_textView.text = CommonData.getInstance().getPath()
-            if(CommonData.getInstance().getPath().isNotEmpty()){
-                val myBitmap: Bitmap = BitmapFactory.decodeFile(CommonData.getInstance().getPath())
-                home_imageView.setImageBitmap(myBitmap)
-            }
+
             if (swiperRefreshLayout.isRefreshing) {
                 swiperRefreshLayout.isRefreshing = false
             }

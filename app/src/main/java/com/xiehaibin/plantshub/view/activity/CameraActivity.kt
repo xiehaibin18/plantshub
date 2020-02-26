@@ -23,6 +23,7 @@ import android.widget.Toast
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import com.xiehaibin.plantshub.model.data.CommonData
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -72,7 +73,6 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
     }
 
     // Add this after onCreate
-
     private val executor = Executors.newSingleThreadExecutor()
     private lateinit var viewFinder: TextureView
 
@@ -139,6 +139,21 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                         }
                         viewFinder.post {
                             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                            camera_textureView.isVisible = false
+                            camera_capture.isVisible = false
+                            camera_imageView.isVisible = true
+                            camera_upload_button.isVisible = true
+                            camera_cancel_button.isVisible = true
+                            if (CommonData.getInstance().getPath().isNotEmpty()) {
+                                var myBitmap: Bitmap = BitmapFactory.decodeFile(CommonData.getInstance().getPath())
+                                val m: Matrix = Matrix()
+                                m.postRotate(90F)
+                                myBitmap = Bitmap.createBitmap(
+                                    myBitmap, 0, 0, myBitmap.width, myBitmap.height,
+                                    m, true
+                                )
+                                camera_imageView.setImageBitmap(myBitmap)
+                            }
                         }
                     }
                 })
@@ -149,15 +164,16 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
         // try rebuilding the project or updating the appcompat dependency to
         // version 1.1.0 or higher.
         CameraX.bindToLifecycle(this, preview, imageCapture)
+
+        camera_cancel_button.setOnClickListener {
+            camera_textureView.isVisible = true
+            camera_capture.isVisible = true
+            camera_imageView.isVisible = false
+            camera_upload_button.isVisible = false
+            camera_cancel_button.isVisible = false
+        }
     }
 
-    fun Image.toBitmap(): Bitmap {
-        val buffer = planes[0].buffer
-        buffer.rewind()
-        val bytes = ByteArray(buffer.capacity())
-        buffer.get(bytes)
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-    }
 
     private fun updateTransform() {
         val matrix = Matrix()
