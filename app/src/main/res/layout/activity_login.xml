@@ -29,6 +29,7 @@
                 android:id="@+id/login_account_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorMainLight"
                 android:hint="@string/app_login_account_editText_hint"
                 android:maxLength="12"
                 android:text="@={ data.accountValue }" />
@@ -46,6 +47,7 @@
                 android:id="@+id/login_password_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorMainLight"
                 android:hint="@string/app_login_password_editText_hint"
                 android:inputType="textPassword"
                 android:maxLength="12"
@@ -55,15 +57,15 @@
         <Button
             android:id="@+id/login_submit_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="@drawable/primary_button_selector"
+            android:onClick="@{ () -> data.clickLoginSubmitButton() }"
             android:text="@string/app_login_submit_button_text"
-            android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline5"
-            android:onClick="@{ () -> data.clickLoginSubmitButton() }"/>
+            app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <TextView
             android:id="@+id/login_register_hint"

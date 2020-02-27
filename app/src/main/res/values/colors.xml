@@ -6,5 +6,6 @@
     <color name="colorMain">#0ABAB5</color>
     <color name="colorMainDark">#09a7a3</color>
     <color name="colorMainGray">#804CCAC1</color>
-    <color name="colorMainLight">#ecfefd</color>
+    <color name="colorMainLight">#ECFEFD</color>
+    <color name="shimmerColor">#8CFFFFFF</color>
 </resources>

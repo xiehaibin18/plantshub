@@ -49,7 +49,7 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.9" />
 
-            <Button
+            <ImageView
                 android:id="@+id/register_back_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -71,6 +71,7 @@
                     android:id="@+id/register_password_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorMainLight"
                     android:focusable="auto"
                     android:hint="@string/app_register_password_editText_hint"
                     android:inputType="textPassword"
@@ -90,6 +91,7 @@
                     android:id="@+id/register_pwdcheck_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorMainLight"
                     android:hint="@string/app_register_pwdcheck_editText_hint"
                     android:inputType="textPassword"
                     android:text="@={ data.pwdcheckValue }" />
@@ -107,6 +109,7 @@
                     android:id="@+id/register_account_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorMainLight"
                     android:hint="@string/app_register_account_editText_hint"
                     android:text="@={ data.accountValue }" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -124,6 +127,7 @@
                     android:id="@+id/register_nickname_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorMainLight"
                     android:hint="@string/app_register_nickname_editText_hint"
                     android:text="@={ data.nicknameValue }" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -141,6 +145,7 @@
                     android:id="@+id/register_phone_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorMainLight"
                     android:hint="@string/app_register_phone_editText_hint"
                     android:inputType="number"
                     android:text="@={ data.phoneValue }" />
@@ -149,7 +154,7 @@
             <Button
                 android:id="@+id/register_submit_button"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/primary_button_selector"

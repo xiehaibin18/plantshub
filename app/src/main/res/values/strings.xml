@@ -29,4 +29,5 @@
     <string name="camera_imageView_contentDescription">相机视图</string>
     <string name="app_camera_upload_button_text">识别</string>
     <string name="app_camera_cancel_button_text">取消</string>
+    <string name="app_home_searchEditText_hint">搜索</string>
 </resources>
