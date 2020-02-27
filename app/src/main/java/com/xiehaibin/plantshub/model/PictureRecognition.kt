@@ -33,19 +33,20 @@ class PictureRecognition {
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                _callback(2, e.toString())
+                _callback(500, e.toString())
             }
 
             override fun onResponse(call: Call, response: Response) {
                 try {
                     val pictureRecognitionData = Gson().fromJson(response.body!!.string(), PictureRecognitionData::class.java)
+                    // err_code 0识别成功，1失败失败，解析Json失败，500服务器错误，400本地出错
                     if (pictureRecognitionData.code == 0) {
                         _callback(pictureRecognitionData.code, pictureRecognitionData.data!!)
                     } else {
                         _callback(pictureRecognitionData.code, pictureRecognitionData.err!!)
                     }
                 } catch (e: Exception) {
-                    _callback(3, e.toString())
+                    _callback(2, e.toString())
                 }
             }
 

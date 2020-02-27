@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        toast(intent.extras.get("msg").toString())
+        val err_code = intent?.getIntExtra("err_code",400)
+        if (err_code != 400) {
+            toast("${err_code}")
+        }
+
     }
 }

@@ -37,12 +37,8 @@ class IndexActivity : AppCompatActivity() {
                     finish()
                 }
                 3 -> {
-                    val intent: Intent = Intent()
-                    intent.setClass(this, MainActivity::class.java)
-//                    var bundle: Bundle = Bundle()
-//                    bundle.putString("msg", "123")
-//                    intent.putExtras(bundle)
-                    startActivity(intent)
+                    toast("验证重新失败")
+                    startActivity<MainActivity>()
                     finish()
                 }
             }

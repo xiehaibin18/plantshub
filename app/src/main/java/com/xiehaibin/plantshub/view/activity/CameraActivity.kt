@@ -29,10 +29,7 @@ import com.xiehaibin.plantshub.util.Base64Util
 import com.xiehaibin.plantshub.util.FileUtil
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.home_fragment.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.image
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -194,6 +191,12 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                                 camera_upload_button.isEnabled = true
                                 camera_cancel_button.isEnabled = true
                                 toast("${err_code}:${msg}")
+                                if (err_code == 0) {
+                                    startActivity<MainActivity>(
+                                        "err_code" to err_code,
+                                        "msg" to msg
+                                    )
+                                }
                             }
                         })
                 }
@@ -203,19 +206,6 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
 
         }
     }
-
-    private fun convertImageFileToBase64(imageFile: File): String {
-        return FileInputStream(imageFile).use { inputStream ->
-            ByteArrayOutputStream().use { outputStream ->
-                Base64OutputStream(outputStream, Base64.DEFAULT).use { base64FilterStream ->
-                    inputStream.copyTo(base64FilterStream)
-                    base64FilterStream.close() // This line is required, see comments
-                    outputStream.toString()
-                }
-            }
-        }
-    }
-
 
     private fun updateTransform() {
         val matrix = Matrix()
@@ -237,7 +227,6 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
         // Finally, apply transformations to our TextureView
         viewFinder.setTransform(matrix)
     }
-
 
     /**
      * Process result from permission request dialog box, has the request
