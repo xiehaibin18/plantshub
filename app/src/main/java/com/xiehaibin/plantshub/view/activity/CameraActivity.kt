@@ -114,7 +114,9 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
 
         // Build the image capture use case and attach button click listener
         val imageCapture = ImageCapture(imageCaptureConfig)
+        // 点击快门
         camera_capture.setOnClickListener {
+            camera_capture.isEnabled = false
             val file = File(
                 externalMediaDirs.first(),
                 "${System.currentTimeMillis()}.jpg"
@@ -130,6 +132,7 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                         val msg = "Photo capture failed: $message"
                         Log.e("CameraXApp", msg, exc)
                         viewFinder.post {
+                            camera_capture.isEnabled = true
                             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -139,6 +142,7 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                             CommonData.getInstance().setPath(file.absolutePath)
                         }
                         viewFinder.post {
+                            camera_capture.isEnabled = true
                             camera_textureView.isVisible = false
                             camera_capture.isVisible = false
                             camera_imageView.isVisible = true
