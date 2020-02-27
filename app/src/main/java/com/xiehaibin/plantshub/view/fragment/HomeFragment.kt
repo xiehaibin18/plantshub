@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.data.CommonData
@@ -46,26 +47,9 @@ class HomeFragment : Fragment() {
             startActivity<CameraActivity>()
         }
 
-        // imageLoader
-//        val imageLoader: ImageLoader = ImageLoader(queue,object : ImageLoader.ImageCache {
-////            private var cache: LruCache<String,Bitmap> = LruCache(50)
-////            override fun getBitmap(url: String): Bitmap? {
-////                return cache.get(url)
-////            }
-////            override fun putBitmap(url: String, bitmap: Bitmap) {
-////                cache.put(url,bitmap)
-////            }
-////        })
-////        var imageUrl: String = "http://10.0.2.2:3000/public/plants/03377978_u=2074496705,3560011917&fm=26&gp=0.jpg"
-////        imageLoader.get(imageUrl,object : ImageLoader.ImageListener {
-////            override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
-////                home_imageView.setImageBitmap(response.bitmap)
-////            }
-////
-////            override fun onErrorResponse(error: VolleyError?) {
-////
-////            }
-////        })
+        home_search_button.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
 
         // swiperRefreshLayout
         swiperRefreshLayout.setOnRefreshListener {

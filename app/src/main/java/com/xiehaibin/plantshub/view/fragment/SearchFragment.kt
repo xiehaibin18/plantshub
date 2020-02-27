@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.viewModel.SearchViewModel
+import kotlinx.android.synthetic.main.search_fragment.*
 
 class SearchFragment : Fragment() {
 
@@ -27,6 +29,9 @@ class SearchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        search_button.setOnClickListener {
+            it.findNavController().navigate(R.id.action_searchFragment_to_overviewFragment)
+        }
     }
 
 }
