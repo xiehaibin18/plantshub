@@ -52,10 +52,10 @@ class HomeFragment : Fragment() {
         }
 
         // swiperRefreshLayout
-        swiperRefreshLayout.setOnRefreshListener {
+        home_swiperRefreshLayout.setOnRefreshListener {
 
-            if (swiperRefreshLayout.isRefreshing) {
-                swiperRefreshLayout.isRefreshing = false
+            if (home_swiperRefreshLayout.isRefreshing) {
+                home_swiperRefreshLayout.isRefreshing = false
             }
         }
 

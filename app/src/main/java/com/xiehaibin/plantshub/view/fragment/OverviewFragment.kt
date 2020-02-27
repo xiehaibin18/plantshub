@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.adapter.OverviewAdapter
+import com.xiehaibin.plantshub.model.data.AllPlantsDataItem
 import com.xiehaibin.plantshub.viewModel.OverviewViewModel
 import kotlinx.android.synthetic.main.overview_fragment.*
 import org.jetbrains.anko.support.v4.toast
@@ -33,18 +34,27 @@ class OverviewFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        overview_swiperRefreshLayout.setOnRefreshListener {
+            viewModel.getOverviewData()
+            overview_swiperRefreshLayout.isRefreshing = false
+        }
+        //
         val overviewAdapter = OverviewAdapter()
+        //
         overview_recyclerView.apply {
             adapter = overviewAdapter
             layoutManager = GridLayoutManager(requireContext(), 1)
         }
-        viewModel.locationData.observe(this, Observer {
-            overviewAdapter.submitList(it)
+        viewModel.overviewData.observe(this, Observer {
+            overviewAdapter.submitList(it as MutableList<AllPlantsDataItem>?)
         })
         viewModel.messsge.observe(this, Observer {
             toast(it)
         })
-        viewModel.getLocationData()
+        viewModel.getOverviewData()
     }
+
+
 
 }

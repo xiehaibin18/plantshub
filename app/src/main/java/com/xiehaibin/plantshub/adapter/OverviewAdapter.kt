@@ -1,5 +1,6 @@
 package com.xiehaibin.plantshub.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
@@ -13,73 +14,76 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.model.data.AllPlantsDataItem
 import com.xiehaibin.plantshub.model.data.LocationDataItem
 import kotlinx.android.synthetic.main.overview_cell.view.*
 
-class OverviewAdapter: ListAdapter<LocationDataItem, MyViewHolder>(DIFFCALLBACK) {
+class OverviewAdapter: ListAdapter<AllPlantsDataItem, MyViewHolder>(DIFFCALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // 加载view
         val view = LayoutInflater.from(parent.context).inflate(R.layout.overview_cell, parent, false)
         // 创建holder
         val holder = MyViewHolder(view)
         // 点击事件
-        holder.itemView.setOnClickListener {  }
+        holder.itemView.setOnClickListener {
+
+        }
 
         return holder
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.itemView.overview_cell_shimmerLayout.apply {
-            setShimmerColor(R.color.shimmerColor)
+            setShimmerColor(0x55FFFFFF)
             setShimmerAngle(0)
             startShimmerAnimation()
         }
-        holder.itemView.overview_cell_textView1.text = getItem(position).location_uid
-        holder.itemView.overview_cell_textView2.text = getItem(position).location_name
+        holder.itemView.overview_cell_textView1.text = getItem(position).plants_name.toString()
+        holder.itemView.overview_cell_textView2.text = getItem(position).plants_uid.toString()
         // 加载图片
-//        Glide.with(holder.itemView)
-//            .load(getItem(position).picture_url)
-//            .placeholder(R.drawable.ic_image_gary_24dp)
-//            .listener(object : RequestListener<Drawable> {
-//                override fun onLoadFailed(
-//                    e: GlideException?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    return false
-//                }
-//
-//                override fun onResourceReady(
-//                    resource: Drawable?,
-//                    model: Any?,
-//                    target: Target<Drawable>?,
-//                    dataSource: DataSource?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    return false.also { holder.itemView.overview_cell_shimmerLayout?.stopShimmerAnimation() }
-//                }
-//
-//            })
-//            .into(holder.itemView.overview_cell_imageView)
+        Glide.with(holder.itemView)
+            .load(getItem(position).plants_picture)
+            .placeholder(R.drawable.ic_image_gary_24dp)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false.also { holder.itemView.overview_cell_shimmerLayout?.stopShimmerAnimation() }
+                }
+
+            })
+            .into(holder.itemView.overview_cell_imageView)
     }
 
     // 比较算法
-    object DIFFCALLBACK: DiffUtil.ItemCallback<LocationDataItem>() {
+    object DIFFCALLBACK: DiffUtil.ItemCallback<AllPlantsDataItem>() {
         override fun areItemsTheSame(
-            oldItem: LocationDataItem,
-            newItem: LocationDataItem
+            oldItem: AllPlantsDataItem,
+            newItem: AllPlantsDataItem
         ): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(
-            oldItem: LocationDataItem,
-            newItem: LocationDataItem
-        ): Boolean {
-            return oldItem.location_uid == newItem.location_uid
-        }
 
+        override fun areContentsTheSame(
+            oldItem: AllPlantsDataItem,
+            newItem: AllPlantsDataItem
+        ): Boolean {
+            return oldItem.plants_uid == newItem.plants_uid
+        }
     }
 }
 

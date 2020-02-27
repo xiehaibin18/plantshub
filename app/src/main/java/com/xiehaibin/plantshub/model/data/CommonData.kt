@@ -22,6 +22,8 @@ class CommonData private constructor(){
     fun getPictureRecognitionUrl() = baseUrl.plus("/api/pictureRecognition")
     // 获取LocationData的url
     fun getLocationDataUrl() = baseUrl.plus("/api/adminGetLocationData")
+    // 获取OverviewData的url
+    fun getOverviewDataUrl() = baseUrl.plus("/api/UserGetData")
 
     private var accountToken: String = ""
     fun setAccountToken(value: String) {
