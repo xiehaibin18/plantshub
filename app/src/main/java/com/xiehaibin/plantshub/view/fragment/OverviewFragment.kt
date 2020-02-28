@@ -39,14 +39,15 @@ class OverviewFragment : Fragment() {
             viewModel.getOverviewData()
             overview_swiperRefreshLayout.isRefreshing = false
         }
-        //
+        // 实例化OverviewAdapter
         val overviewAdapter = OverviewAdapter()
-        //
+        // recyclerView设置
         overview_recyclerView.apply {
             adapter = overviewAdapter
             layoutManager = GridLayoutManager(requireContext(), 1)
         }
         viewModel.overviewData.observe(this, Observer {
+            // 提交数据给OverviewAdapter
             overviewAdapter.submitList(it as MutableList<AllPlantsDataItem>?)
         })
         viewModel.messsge.observe(this, Observer {

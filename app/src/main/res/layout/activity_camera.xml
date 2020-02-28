@@ -15,11 +15,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageView
         android:id="@+id/camera_capture"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/camera_capture_selector"
+        android:contentDescription="@string/app_camera_capture"
         app:layout_constraintBottom_toBottomOf="@+id/camera_textureView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

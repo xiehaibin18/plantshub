@@ -30,4 +30,10 @@
     <string name="app_camera_upload_button_text">识别</string>
     <string name="app_camera_cancel_button_text">取消</string>
     <string name="app_home_searchEditText_hint">搜索</string>
+    <string name="app_home_search_button_contentDescription">搜索</string>
+    <string name="app_home_navbar_imageView_contentDsecription">导航背景</string>
+    <string name="app_camera_capture">拍照按钮</string>
+    <string name="home_study_button_contentDescription">学习按钮</string>
+    <string name="app_home_index_button_contentDescription">首页按钮</string>
+    <string name="app_home_user_button_contentDescription">用户按钮</string>
 </resources>
