@@ -124,7 +124,6 @@
                 android:layout_height="50dp"
                 android:background="@drawable/home_study_button_selector"
                 android:contentDescription="@string/home_study_button_contentDescription"
-                android:saveEnabled="@{ data.studyIsEnable }"
                 app:layout_constraintBottom_toBottomOf="@+id/home_navbar_imageView"
                 app:layout_constraintEnd_toStartOf="@+id/home_index_button"
                 app:layout_constraintHorizontal_bias="0.4"
