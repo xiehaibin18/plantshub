@@ -1,10 +1,10 @@
 package com.xiehaibin.plantshub.model.data
 
-class CommonData private constructor(){
+class CommonData private constructor() {
     companion object {
-        private var INSTANCE : CommonData?=null
+        private var INSTANCE: CommonData? = null
         fun getInstance() =
-            INSTANCE?: synchronized(this) {
+            INSTANCE ?: synchronized(this) {
                 CommonData().also { INSTANCE = it }
             }
     }
@@ -12,29 +12,58 @@ class CommonData private constructor(){
     // baseUrl
 //    private var baseUrl: String = "http://10.0.2.2:3000"
     private var baseUrl: String = "http://192.168.0.105:3000"
+
     // 获取验证AccountToken的url
     fun getChkAccountTokenUrl() = baseUrl.plus("/api/CheckAccountToken")
+
     // 获取验证AccountToken的url
     fun getChkLoginUrl() = baseUrl.plus("/api/CheckLogin")
+
     // 获取验证AccountToken的url
     fun getUserRegisterUrl() = baseUrl.plus("/api/UserRegister")
+
     // 获取pictureRecognition的url
     fun getPictureRecognitionUrl() = baseUrl.plus("/api/pictureRecognition")
+
     // 获取LocationData的url
     fun getLocationDataUrl() = baseUrl.plus("/api/adminGetLocationData")
+
     // 获取OverviewData的url
     fun getOverviewDataUrl() = baseUrl.plus("/api/UserGetData")
 
+    // 获取OverviewData的url
+    fun getUserInfoUrl() = baseUrl.plus("/api/UserGetData")
+
+    // accountToken
     private var accountToken: String = ""
+
     fun setAccountToken(value: String) {
         accountToken = value
     }
-    fun getAccountToken(): String = accountToken
 
+    fun getAccountToken(): String = accountToken
+    // 照片路径
     private var path: String = ""
+
     fun setPath(value: String) {
         path = value
     }
-    fun getPath(): String = path
 
+    fun getPath(): String = path
+    // 用户姓名
+    private var userName: String = ""
+
+    fun setUserName(value: String) {
+        userName = value
+    }
+
+    fun getUserName(): String = userName
+    // 用户头像
+    private var userAvatar: String = ""
+
+    fun setUserAvatar(value: String) {
+        userAvatar = value
+    }
+
+    fun getUserAvatar(): String = userAvatar
 }

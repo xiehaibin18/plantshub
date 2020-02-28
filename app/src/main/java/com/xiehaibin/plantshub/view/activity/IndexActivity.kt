@@ -37,7 +37,7 @@ class IndexActivity : AppCompatActivity() {
                     finish()
                 }
                 3 -> {
-                    toast("验证重新失败")
+                    toast(viewModel.message.value ?: "验证失败")
                     startActivity<MainActivity>()
                     finish()
                 }

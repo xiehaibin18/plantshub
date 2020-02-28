@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.CheckAccountToken
+import com.xiehaibin.plantshub.model.GetUserInfo
 import com.xiehaibin.plantshub.model.data.CommonData
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -54,6 +55,8 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
                     uiThread {
                         if (err_code == 0) {
                             setAccountToken(accountToken)
+                            // 获取用户个人信息
+                            getUserInfo()
                         }
                         message.value = msg
                         status_code.value = err_code
@@ -62,6 +65,26 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
             }
         } else {
             status_code.value = 4
+        }
+    }
+
+    private fun getUserInfo() {
+        val accountToken = CommonData.getInstance().getAccountToken()
+        val url = CommonData.getInstance().getUserInfoUrl()
+        val getUserInfo = GetUserInfo()
+        doAsync {
+            getUserInfo.post(
+                "getUserInfo",
+                url,
+                accountToken,
+                fun(err_code, msg) {
+                    if (err_code != 0) {
+                        uiThread {
+                            message.value = msg
+                            status_code.value = 3
+                        }
+                    }
+                })
         }
     }
 }
