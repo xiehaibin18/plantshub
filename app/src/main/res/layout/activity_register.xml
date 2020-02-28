@@ -49,7 +49,7 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.9" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/register_back_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.355" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/home_identify_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -95,7 +95,7 @@
                     android:hint="@string/app_home_searchEditText_hint" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/home_search_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -118,7 +118,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/home_study_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -130,7 +130,7 @@
                 app:layout_constraintStart_toStartOf="@+id/home_navbar_imageView"
                 app:layout_constraintTop_toTopOf="@+id/home_navbar_imageView" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/home_index_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -141,7 +141,7 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline17"
                 app:layout_constraintTop_toTopOf="@+id/home_navbar_imageView" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/home_user_button"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

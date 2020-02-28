@@ -36,4 +36,5 @@
     <string name="home_study_button_contentDescription">学习按钮</string>
     <string name="app_home_index_button_contentDescription">首页按钮</string>
     <string name="app_home_user_button_contentDescription">用户按钮</string>
+    <string name="app_user_not_logged_login_button_text">前往登录解锁更多功能！</string>
 </resources>
