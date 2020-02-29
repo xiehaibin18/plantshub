@@ -49,23 +49,21 @@
             android:id="@+id/user_logged_userAvatar"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_marginTop="24dp"
             android:contentDescription="@string/app_user_logged_avatar"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="@+id/guideline21"
-            app:layout_constraintTop_toTopOf="@+id/guideline22"
+            app:layout_constraintTop_toTopOf="@+id/guideline24"
             tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/user_logged_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="184dp"
-            android:layout_marginTop="149dp"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/user_logged_userAvatar"
+            app:layout_constraintEnd_toStartOf="@+id/guideline23"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="欢迎您" />
 
         <View
@@ -188,6 +186,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline23"
             app:layout_constraintStart_toStartOf="@+id/guideline21" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
