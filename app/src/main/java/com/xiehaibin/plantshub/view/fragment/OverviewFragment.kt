@@ -49,7 +49,7 @@ class OverviewFragment : Fragment() {
             overviewAdapter.submitList(it as MutableList<AllPlantsDataItem>?)
             overview_swiperRefreshLayout.isRefreshing = false
         })
-        viewModel.messsge.observe(this, Observer {
+        viewModel.message.observe(this, Observer {
             toast(it)
         })
         viewModel.getOverviewData()

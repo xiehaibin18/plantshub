@@ -15,7 +15,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         MutableLiveData<List<Any>>()
     }
 
-    val messsge: MutableLiveData<String> by lazy {
+    val message: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 
@@ -32,7 +32,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                         if (err_code == 0) {
                             overviewData.value = data
                         } else {
-                            messsge.value = msg
+                            message.value = msg
                         }
                     }
                 }

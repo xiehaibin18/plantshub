@@ -14,13 +14,12 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.data.UserMessageDataItem
-import kotlinx.android.synthetic.main.overview_cell.view.*
 import kotlinx.android.synthetic.main.user_message_cell.view.*
 
 class UserMessageAdapter: ListAdapter<UserMessageDataItem, UserMessageViewHolder>(DIFFCALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserMessageViewHolder {
         // 加载view
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.overview_cell, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.user_message_cell, parent, false)
         // 创建holder
         val holder = UserMessageViewHolder(view)
         // 点击事件
@@ -35,7 +34,7 @@ class UserMessageAdapter: ListAdapter<UserMessageDataItem, UserMessageViewHolder
     }
 
     override fun onBindViewHolder(holder: UserMessageViewHolder, position: Int) {
-        holder.itemView.overview_cell_shimmerLayout.apply {
+        holder.itemView.user_message_cell_shimmerLayout.apply {
             setShimmerColor(0x55FFFFFF)
             setShimmerAngle(0)
             startShimmerAnimation()

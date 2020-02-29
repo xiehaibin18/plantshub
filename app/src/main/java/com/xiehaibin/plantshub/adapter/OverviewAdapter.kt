@@ -36,7 +36,7 @@ class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCA
             setShimmerAngle(0)
             startShimmerAnimation()
         }
-        holder.itemView.overview_cell_textView1.text = getItem(position).plants_name.toString()
+        holder.itemView.overview_cell_textView1.text = getItem(position).plants_name
         holder.itemView.overview_cell_textView2.text = getItem(position).plants_uid.toString()
         // 加载图片
         Glide.with(holder.itemView)

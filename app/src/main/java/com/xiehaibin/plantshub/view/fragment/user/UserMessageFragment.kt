@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.adapter.UserMessageAdapter
+import com.xiehaibin.plantshub.model.data.UserMessageDataItem
 import com.xiehaibin.plantshub.viewModel.user.UserMessageViewModel
 import kotlinx.android.synthetic.main.user_message_fragment.*
+import org.jetbrains.anko.support.v4.toast
 
 class UserMessageFragment : Fragment() {
 
@@ -43,6 +45,9 @@ class UserMessageFragment : Fragment() {
             // 提交数据给UserMessageAdapter
             userMessageAdapter.submitList(it)
             user_message_swipeRefreshLayout.isRefreshing = false
+        })
+        viewModel.message.observe(this, Observer {
+            toast(it)
         })
         viewModel.getUserMessageAdapterData()
         // 下拉刷新

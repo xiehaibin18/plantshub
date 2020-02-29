@@ -82,7 +82,7 @@ data class AllPlantsDataItem(
 data class UserInfoData(
     val err_code: Int,
     val msg: String?,
-    val data: Array<UserInfoDataItem>?
+    val data: Array<UserInfoDataItem>
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -143,7 +143,7 @@ data class UserMessageData(
 }
 
 data class UserMessageDataItem(
-    val id: Int,
+    val id: String,
     val name: String?,
     val avatar: String?,
     val time: String?,

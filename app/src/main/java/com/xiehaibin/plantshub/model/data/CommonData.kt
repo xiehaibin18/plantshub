@@ -31,8 +31,11 @@ class CommonData private constructor() {
     // 获取OverviewData的url
     fun getOverviewDataUrl() = baseUrl.plus("/api/UserGetData")
 
-    // 获取OverviewData的url
+    // 获取UserInfoData的url
     fun getUserInfoUrl() = baseUrl.plus("/api/UserGetData")
+
+    // 获取UserMessageData的url
+    fun getUserMessageUrl() = baseUrl.plus("/api/UserGetData")
 
     // accountToken
     private var accountToken: String = ""
