@@ -33,7 +33,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_keyboard_arrow_left_main_24dp"
-            android:contentDescription="返回"
+            android:contentDescription="@string/app_back_button"
             app:layout_constraintBottom_toTopOf="@+id/guideline22"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline22" />
@@ -50,6 +50,7 @@
             android:layout_width="130dp"
             android:layout_height="130dp"
             android:layout_marginTop="24dp"
+            android:contentDescription="@string/app_user_logged_avatar"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="@+id/guideline21"
             app:layout_constraintTop_toTopOf="@+id/guideline22"
@@ -60,9 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="184dp"
+            android:layout_marginTop="149dp"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/user_logged_userAvatar"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="欢迎您" />
 
         <View
@@ -150,6 +153,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_chevron_right_black_24dp"
+            android:contentDescription="@string/app_user_logged_message"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -159,6 +163,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_chevron_right_black_24dp"
+            android:contentDescription="@string/app_user_logged_favorite"
             app:layout_constraintBottom_toTopOf="@+id/view3"
             app:layout_constraintEnd_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toBottomOf="@+id/user_logged_message" />
@@ -168,6 +173,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_chevron_right_black_24dp"
+            android:contentDescription="@string/app_user_logged_setup"
             app:layout_constraintBottom_toTopOf="@+id/view4"
             app:layout_constraintEnd_toStartOf="@+id/guideline23"
             app:layout_constraintTop_toBottomOf="@+id/user_logged_favorite" />

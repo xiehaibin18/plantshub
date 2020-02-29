@@ -22,6 +22,9 @@ class GetUserInfo {
         _url: String,
         _callback: (err_code: Int, msg: String?) -> Unit
     ) {
+        if (_accountToken == "tourists") {
+            return
+        }
         val client = OkHttpClient()
         val formBody = FormBody.Builder()
             .add("type", _type)
@@ -38,7 +41,8 @@ class GetUserInfo {
 
             override fun onResponse(call: Call, response: Response) {
                 try {
-                    val userInfoData = Gson().fromJson(response.body!!.string(), UserInfoData::class.java)
+                    val userInfoData =
+                        Gson().fromJson(response.body!!.string(), UserInfoData::class.java)
                     CommonData.getInstance().setUserName(userInfoData.data!![0].name!!)
                     CommonData.getInstance().setUserAvatar(userInfoData.data!![0].avatar!!)
                     _callback(0, "ok")

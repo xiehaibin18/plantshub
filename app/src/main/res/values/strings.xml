@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">plantshub</string>
     <string name="app_index_img">whiteflower</string>
-    <string name="app_defValue"></string>
+    <string name="app_defValue">头像</string>
     <!--  Login  -->
     <string name="app_login_account_editText_hint">请输入账号</string>
     <string name="app_login_password_editText_hint">请输入密码</string>
@@ -41,4 +41,6 @@
     <string name="app_user_logged_favorite">收藏</string>
     <string name="app_user_logged_setup">设置</string>
     <string name="app_user_logged_logout_button_text">退出登录</string>
+    <string name="app_back_button">返回</string>
+    <string name="app_user_logged_avatar" />
 </resources>

@@ -58,6 +58,9 @@ class UserLoggedFragment : Fragment() {
             viewModel.userLogout()
             it.findNavController().navigate(R.id.action_userLoggedFragment_to_homeFragment)
         }
+        user_logged_message.setOnClickListener {
+            it.findNavController().navigate(R.id.action_userLoggedFragment_to_userMessageFragment)
+        }
     }
 
 }
