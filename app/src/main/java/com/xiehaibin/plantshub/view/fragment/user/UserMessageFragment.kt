@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.adapter.UserMessageAdapter
 import com.xiehaibin.plantshub.viewModel.user.UserMessageViewModel
+import kotlinx.android.synthetic.main.user_message_fragment.*
 
 class UserMessageFragment : Fragment() {
 
@@ -28,6 +32,23 @@ class UserMessageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        // 实例化UserMessageAdapter
+        val userMessageAdapter = UserMessageAdapter()
+        // recyclerView设置
+        user_message_recyclerView.apply {
+            adapter = userMessageAdapter
+            layoutManager = GridLayoutManager(requireContext(), 1)
+        }
+        viewModel.userMessageAdapter.observe(this, Observer {
+            // 提交数据给UserMessageAdapter
+            userMessageAdapter.submitList(it)
+            user_message_swipeRefreshLayout.isRefreshing = false
+        })
+        viewModel.getUserMessageAdapterData()
+        // 下拉刷新
+        user_message_swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getUserMessageAdapterData()
+        }
     }
 
 }

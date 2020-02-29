@@ -43,4 +43,5 @@
     <string name="app_user_logged_logout_button_text">退出登录</string>
     <string name="app_back_button">返回</string>
     <string name="app_user_logged_avatar" />
+    <string name="app_user_message_button_text">回复</string>
 </resources>

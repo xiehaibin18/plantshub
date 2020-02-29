@@ -49,8 +49,8 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <ImageButton
+        android:id="@+id/user_message_back_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_keyboard_arrow_left_main_24dp"

@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,7 +36,6 @@ class OverviewFragment : Fragment() {
 
         overview_swiperRefreshLayout.setOnRefreshListener {
             viewModel.getOverviewData()
-            overview_swiperRefreshLayout.isRefreshing = false
         }
         // 实例化OverviewAdapter
         val overviewAdapter = OverviewAdapter()
@@ -49,6 +47,7 @@ class OverviewFragment : Fragment() {
         viewModel.overviewData.observe(this, Observer {
             // 提交数据给OverviewAdapter
             overviewAdapter.submitList(it as MutableList<AllPlantsDataItem>?)
+            overview_swiperRefreshLayout.isRefreshing = false
         })
         viewModel.messsge.observe(this, Observer {
             toast(it)

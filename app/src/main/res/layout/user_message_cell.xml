@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/user_message_cell_shimmerLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/user_message_cell_imageView"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/app_defValue"
+                tools:srcCompat="@tools:sample/avatars" />
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+        <TextView
+            android:id="@+id/user_message_cell_nickname_textView"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/user_message_cell_shimmerLayout"
+            app:layout_constraintStart_toEndOf="@+id/user_message_cell_shimmerLayout"
+            app:layout_constraintTop_toTopOf="@+id/user_message_cell_shimmerLayout"
+            tools:text="谢海滨" />
+
+        <TextView
+            android:id="@+id/user_message_cell_time_textView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/user_message_cell_shimmerLayout"
+            app:layout_constraintStart_toEndOf="@+id/user_message_cell_nickname_textView"
+            app:layout_constraintTop_toTopOf="@+id/user_message_cell_shimmerLayout"
+            tools:text="2020-02-29" />
+
+        <TextView
+            android:id="@+id/user_message_cell_textView_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline29"
+            tools:text="你好，我是谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨" />
+
+        <Button
+            android:id="@+id/user_message_cell_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/app_user_message_button_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="66dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

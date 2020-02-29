@@ -13,34 +13,39 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
-import com.xiehaibin.plantshub.model.data.AllPlantsDataItem
+import com.xiehaibin.plantshub.model.data.UserMessageDataItem
 import kotlinx.android.synthetic.main.overview_cell.view.*
+import kotlinx.android.synthetic.main.user_message_cell.view.*
 
-class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCALLBACK) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OverviewViewHolder {
+class UserMessageAdapter: ListAdapter<UserMessageDataItem, UserMessageViewHolder>(DIFFCALLBACK) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserMessageViewHolder {
         // 加载view
         val view = LayoutInflater.from(parent.context).inflate(R.layout.overview_cell, parent, false)
         // 创建holder
-        val holder = OverviewViewHolder(view)
+        val holder = UserMessageViewHolder(view)
         // 点击事件
         holder.itemView.setOnClickListener {
+
+        }
+        holder.itemView.user_message_cell_button.setOnClickListener {
 
         }
 
         return holder
     }
 
-    override fun onBindViewHolder(holder: OverviewViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserMessageViewHolder, position: Int) {
         holder.itemView.overview_cell_shimmerLayout.apply {
             setShimmerColor(0x55FFFFFF)
             setShimmerAngle(0)
             startShimmerAnimation()
         }
-        holder.itemView.overview_cell_textView1.text = getItem(position).plants_name.toString()
-        holder.itemView.overview_cell_textView2.text = getItem(position).plants_uid.toString()
+        holder.itemView.user_message_cell_nickname_textView.text = getItem(position).name
+        holder.itemView.user_message_cell_time_textView.text = getItem(position).time
+        holder.itemView.user_message_cell_textView_content.text = getItem(position).content
         // 加载图片
         Glide.with(holder.itemView)
-            .load(getItem(position).plants_picture)
+            .load(getItem(position).avatar)
             .placeholder(R.drawable.ic_image_gary_24dp)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
@@ -59,30 +64,31 @@ class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCA
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    return false.also { holder.itemView.overview_cell_shimmerLayout?.stopShimmerAnimation() }
+                    return false.also { holder.itemView.user_message_cell_shimmerLayout?.stopShimmerAnimation() }
                 }
 
             })
-            .into(holder.itemView.overview_cell_imageView)
+            .into(holder.itemView.user_message_cell_imageView)
     }
 
     // 比较算法
-    private object DIFFCALLBACK: DiffUtil.ItemCallback<AllPlantsDataItem>() {
+    private object DIFFCALLBACK: DiffUtil.ItemCallback<UserMessageDataItem>() {
         override fun areItemsTheSame(
-            oldItem: AllPlantsDataItem,
-            newItem: AllPlantsDataItem
+            oldItem: UserMessageDataItem,
+            newItem: UserMessageDataItem
         ): Boolean {
             return oldItem === newItem
         }
 
 
         override fun areContentsTheSame(
-            oldItem: AllPlantsDataItem,
-            newItem: AllPlantsDataItem
+            oldItem: UserMessageDataItem,
+            newItem: UserMessageDataItem
         ): Boolean {
-            return oldItem.plants_uid == newItem.plants_uid
+            return oldItem.id == newItem.id
         }
     }
+
 }
 
-class OverviewViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+class UserMessageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
