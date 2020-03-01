@@ -38,7 +38,11 @@ class UserFavoriteAdapter :
             setShimmerAngle(0)
             startShimmerAnimation()
         }
-        holder.itemView.user_favorite_cell_name_textView.text = getItem(position).name
+        if (getItem(position).type == 0) {
+            holder.itemView.user_favorite_cell_name_textView.text = "植物：${getItem(position).name}"
+        } else {
+            holder.itemView.user_favorite_cell_name_textView.text = "位置：${getItem(position).name}"
+        }
         holder.itemView.user_favorite_cell_content_textView.text = getItem(position).content
         // 加载图片
         Glide.with(holder.itemView)

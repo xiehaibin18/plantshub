@@ -2,10 +2,12 @@ package com.xiehaibin.plantshub.view.fragment.user
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.isDigitsOnly
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,6 +19,9 @@ import com.xiehaibin.plantshub.databinding.UserLoggedFragmentBinding
 import com.xiehaibin.plantshub.viewModel.user.UserLoggedViewModel
 import kotlinx.android.synthetic.main.overview_cell.view.*
 import kotlinx.android.synthetic.main.user_logged_fragment.*
+import org.jetbrains.anko.support.v4.toast
+import java.io.File
+import java.lang.Exception
 
 class UserLoggedFragment : Fragment() {
 
@@ -69,6 +74,28 @@ class UserLoggedFragment : Fragment() {
         }
         user_logged_favorite_button.setOnClickListener {
             it.findNavController().navigate(R.id.action_userLoggedFragment_to_userFavoriteFragment)
+        }
+        user_logged_setup.setOnClickListener {
+            val filePath: File = File("/storage/emulated/0/Android/media/com.xiehaibin.plantshub/")
+            if(filePath.isDirectory) {
+                try {
+                    deleteFile(filePath)
+                    toast("清理成功")
+                } catch (e: Exception) {
+                    toast("清理失败")
+                }
+
+            }
+        }
+    }
+    private fun deleteFile(root: File) {
+        val files: Array<File> = root.listFiles()
+        if (files != null) {
+            for (f: File in files){
+                if(f.exists()) {
+                    f.delete()
+                }
+            }
         }
     }
 

@@ -6,6 +6,9 @@ import com.xiehaibin.plantshub.R
 // Your IDE likely can auto-import these classes, but there are several
 // different implementations so we list them here to disambiguate.
 import android.Manifest
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -139,6 +142,12 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
 
                     override fun onImageSaved(file: File) {
                         if (file.exists()) {
+//                            val shpName: String = "user_info"
+//                            val shp: SharedPreferences =
+//                                application.getSharedPreferences(shpName, Context.MODE_PRIVATE)
+//                            val editor: SharedPreferences.Editor = shp.edit()
+//                            editor.putString("Path", file.absolutePath)
+//                            editor.apply()
                             CommonData.getInstance().setPath(file.absolutePath)
                         }
                         viewFinder.post {

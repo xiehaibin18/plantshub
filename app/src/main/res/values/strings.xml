@@ -39,7 +39,7 @@
     <string name="app_user_not_logged_login_button_text">前往登录解锁更多功能！</string>
     <string name="app_user_logged_message">消息</string>
     <string name="app_user_logged_favorite">收藏</string>
-    <string name="app_user_logged_setup">设置</string>
+    <string name="app_user_logged_setup">清理缓存</string>
     <string name="app_user_logged_logout_button_text">退出登录</string>
     <string name="app_back_button">返回</string>
     <string name="app_user_logged_avatar" >图片</string>
