@@ -1,20 +1,24 @@
 package com.xiehaibin.plantshub.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.adapter.OverviewAdapter
 import com.xiehaibin.plantshub.model.data.AllPlantsDataItem
+import com.xiehaibin.plantshub.model.data.CommonData
+import com.xiehaibin.plantshub.view.activity.MainActivity
 import com.xiehaibin.plantshub.viewModel.OverviewViewModel
 import kotlinx.android.synthetic.main.overview_fragment.*
+import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
 
 class OverviewFragment : DialogFragment() {
@@ -54,6 +58,13 @@ class OverviewFragment : DialogFragment() {
             toast(it)
         })
         viewModel.getOverviewData()
+        if (CommonData.getInstance().getIsDialog()) {
+            overview_goto_button.isVisible = true
+            CommonData.getInstance().setIsDialog(false)
+        }
+        overview_goto_button.setOnClickListener {
+            startActivity<MainActivity>()
+        }
     }
 
 

@@ -138,7 +138,10 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     uiThread {
                         when (err_code) {
                             0 -> setAccountToken(msg)
-                            1 -> phoneErrorHint.value = "手机号码已注册"
+                            1 -> {
+                                phoneErrorHint.value = "手机号码已注册"
+                                accountErrorHint.value = "账号已被注册"
+                            }
                         }
                         message.value = msg
                         status_code.value = err_code

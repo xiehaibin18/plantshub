@@ -37,6 +37,9 @@ class CommonData private constructor() {
     // 获取UserMessageData的url
     fun getUserMessageUrl() = baseUrl.plus("/api/UserGetData")
 
+    // 获取UserFavoriteData的url
+    fun getUserFavoriteUrl() = baseUrl.plus("/api/UserGetData")
+
     // accountToken
     private var accountToken: String = ""
 
@@ -69,4 +72,12 @@ class CommonData private constructor() {
     }
 
     fun getUserAvatar(): String = userAvatar
+    // Dialog
+    private var isDialog: Boolean = false
+
+    fun setIsDialog(value: Boolean) {
+        isDialog = value
+    }
+
+    fun getIsDialog(): Boolean = isDialog
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 
 import com.xiehaibin.plantshub.R
@@ -54,6 +55,9 @@ class UserMessageFragment : Fragment() {
         // 下拉刷新
         user_message_swipeRefreshLayout.setOnRefreshListener {
             viewModel.getUserMessageAdapterData()
+        }
+        user_message_back_button.setOnClickListener {
+            it.findNavController().navigate(R.id.action_userMessageFragment_to_userLoggedFragment)
         }
     }
 

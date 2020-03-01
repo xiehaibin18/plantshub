@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.model.data.UserMessageDataItem
 import com.xiehaibin.plantshub.view.fragment.DialogFragment
 import com.xiehaibin.plantshub.view.fragment.OverviewFragment
@@ -39,6 +40,7 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
             )
         }
         holder.itemView.user_message_cell_button.setOnClickListener {
+            CommonData.getInstance().setIsDialog(true)
             val newFragment = OverviewFragment()
             newFragment.show((parent.context as AppCompatActivity).supportFragmentManager, "111")
         }

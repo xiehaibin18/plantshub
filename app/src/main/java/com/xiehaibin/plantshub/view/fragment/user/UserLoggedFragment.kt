@@ -61,6 +61,15 @@ class UserLoggedFragment : Fragment() {
         user_logged_message.setOnClickListener {
             it.findNavController().navigate(R.id.action_userLoggedFragment_to_userMessageFragment)
         }
+        user_logged_message_button.setOnClickListener {
+            it.findNavController().navigate(R.id.action_userLoggedFragment_to_userMessageFragment)
+        }
+        user_logged_favorite.setOnClickListener {
+            it.findNavController().navigate(R.id.action_userLoggedFragment_to_userFavoriteFragment)
+        }
+        user_logged_favorite_button.setOnClickListener {
+            it.findNavController().navigate(R.id.action_userLoggedFragment_to_userFavoriteFragment)
+        }
     }
 
 }

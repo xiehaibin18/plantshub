@@ -25,7 +25,7 @@
                 android:id="@+id/user_message_cell_imageView"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:contentDescription="@string/app_defValue"
+                android:contentDescription="@string/app_user_logged_avatar"
                 tools:srcCompat="@tools:sample/avatars" />
         </io.supercharge.shimmerlayout.ShimmerLayout>
 

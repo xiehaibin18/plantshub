@@ -151,3 +151,40 @@ data class UserMessageDataItem(
     val message_plants_uid: String?,
     val message_location_uid: String?
 )
+
+data class UserFavoriteData(
+    val err_code: Int,
+    val msg: String?,
+    val data: Array<UserFavoriteDataItem>?
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserFavoriteData
+
+        if (err_code != other.err_code) return false
+        if (msg != other.msg) return false
+        if (data != null) {
+            if (other.data == null) return false
+            if (!data.contentEquals(other.data)) return false
+        } else if (other.data != null) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = err_code
+        result = 31 * result + (msg?.hashCode() ?: 0)
+        result = 31 * result + (data?.contentHashCode() ?: 0)
+        return result
+    }
+}
+
+data class UserFavoriteDataItem(
+    val id: String,
+    val type: Int,
+    val name: String?,
+    val picture: String?,
+    val content: String?
+)
