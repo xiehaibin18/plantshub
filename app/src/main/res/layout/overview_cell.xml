@@ -4,46 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/overview_cell_textView1"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/app_user_logged_avatar"
             app:layout_constraintBottom_toTopOf="@+id/guideline16"
-            app:layout_constraintEnd_toStartOf="@+id/overview_cell_textView2"
-            app:layout_constraintHorizontal_bias="0.71"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/overview_cell_textView2"
             app:layout_constraintTop_toTopOf="@+id/guideline16"
-            tools:text="123" />
+            app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+
+        <TextView
+            android:id="@+id/overview_cell_name_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline16"
+            app:layout_constraintStart_toEndOf="@+id/overview_cell_shimmerLayout"
+            app:layout_constraintTop_toTopOf="@+id/guideline16"
+            tools:text="兰花" />
 
         <TextView
             android:id="@+id/overview_cell_textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline16"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="15dp"
+            android:ellipsize="end"
+            android:maxLines="4"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/overview_cell_shimmerLayout"
             app:layout_constraintTop_toTopOf="@+id/guideline16"
-            tools:text="123" />
+            tools:text="介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下介绍我一下" />
 
         <io.supercharge.shimmerlayout.ShimmerLayout
             android:id="@+id/overview_cell_shimmerLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/overview_cell_imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/app_user_logged_avatar"
                 tools:srcCompat="@tools:sample/avatars" />
         </io.supercharge.shimmerlayout.ShimmerLayout>
 
@@ -52,7 +74,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="35dp" />
+            app:layout_constraintGuide_begin="30dp" />
+
+        <TextView
+            android:id="@+id/overview_cell_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline16"
+            app:layout_constraintEnd_toEndOf="@+id/overview_cell_textView2"
+            app:layout_constraintTop_toTopOf="@+id/guideline16"
+            tools:text="100" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

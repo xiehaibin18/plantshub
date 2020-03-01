@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorMainLight"
     android:minWidth="350dp"
     android:minHeight="500dp"
     tools:context=".view.fragment.OverviewFragment">

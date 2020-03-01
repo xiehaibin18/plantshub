@@ -45,4 +45,6 @@
     <string name="app_user_logged_avatar" >图片</string>
     <string name="app_user_message_button_text">回复</string>
     <string name="app_overview_goto_button">进入</string>
+    <string name="app_v26_senderdialog_hint">请输入250字以内的内容</string>
+    <string name="app_v26_senderdialog_button">发送</string>
 </resources>

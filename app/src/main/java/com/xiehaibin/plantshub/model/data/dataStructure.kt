@@ -149,7 +149,8 @@ data class UserMessageDataItem(
     val time: String?,
     val content: String?,
     val message_plants_uid: String?,
-    val message_location_uid: String?
+    val message_location_uid: String?,
+    val senderUid: String
 )
 
 data class UserFavoriteData(

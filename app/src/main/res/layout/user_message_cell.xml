@@ -53,15 +53,13 @@
             android:id="@+id/user_message_cell_textView_content"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:ellipsize="end"
             android:maxLines="3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/user_message_cell_button"
+            app:layout_constraintStart_toStartOf="@+id/user_message_cell_shimmerLayout"
             app:layout_constraintTop_toTopOf="@+id/guideline29"
             tools:text="你好，我是谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨谢海滨" />
 

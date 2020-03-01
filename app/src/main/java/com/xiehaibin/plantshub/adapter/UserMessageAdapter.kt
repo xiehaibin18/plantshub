@@ -2,10 +2,12 @@ package com.xiehaibin.plantshub.adapter
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -33,22 +35,31 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
         val holder = UserMessageViewHolder(view)
         // 点击事件
         holder.itemView.setOnClickListener {
-            parent.context.toast(
-                "${getItem(holder.adapterPosition).message_plants_uid ?: getItem(
-                    holder.adapterPosition
-                ).message_location_uid}"
+            CommonData.getInstance().setIsDialog(true)
+            val newFragment = OverviewFragment()
+            newFragment.show(
+                (parent.context as AppCompatActivity).supportFragmentManager,
+                "OverviewFragment"
             )
         }
         holder.itemView.user_message_cell_button.setOnClickListener {
-            CommonData.getInstance().setIsDialog(true)
-            val newFragment = OverviewFragment()
-            newFragment.show((parent.context as AppCompatActivity).supportFragmentManager, "111")
+            val senderDialog = DialogFragment.newInstance()
+            val info = Bundle()
+            info.putString("name", getItem(holder.adapterPosition).name)
+            info.putString("content", getItem(holder.adapterPosition).content)
+            info.putString("senderUid", getItem(holder.adapterPosition).senderUid)
+            senderDialog.receiverInfo(info)
+            senderDialog.show(
+                (parent.context as AppCompatActivity).supportFragmentManager,
+                "DialogFragment"
+            )
         }
 
         return holder
     }
 
     override fun onBindViewHolder(holder: UserMessageViewHolder, position: Int) {
+        if (getItem(position).name == "系统通知") { holder.itemView.user_message_cell_button.isVisible = false }
         holder.itemView.user_message_cell_shimmerLayout.apply {
             setShimmerColor(0x55FFFFFF)
             setShimmerAngle(0)
@@ -56,7 +67,7 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
         }
         holder.itemView.user_message_cell_nickname_textView.text = getItem(position).name
         holder.itemView.user_message_cell_time_textView.text = getItem(position).time
-        holder.itemView.user_message_cell_textView_content.text = getItem(position).content
+        holder.itemView.user_message_cell_textView_content.text = "内容：${getItem(position).content}"
         // 加载图片
         Glide.with(holder.itemView)
             .load(getItem(position).avatar)

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorMainLight"
     tools:context=".view.fragment.user.UserNotLoggedFragment">
 
     <ImageButton
@@ -11,10 +12,10 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/ic_keyboard_arrow_left_main_24dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline19"
-        android:contentDescription="TODO" />
+        app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"
