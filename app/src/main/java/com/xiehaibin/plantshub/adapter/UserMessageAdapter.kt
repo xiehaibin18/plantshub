@@ -1,9 +1,11 @@
 package com.xiehaibin.plantshub.adapter
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,20 +16,31 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.data.UserMessageDataItem
+import com.xiehaibin.plantshub.view.fragment.DialogFragment
+import com.xiehaibin.plantshub.view.fragment.OverviewFragment
+import com.xiehaibin.plantshub.view.fragment.user.UserMessageFragment
 import kotlinx.android.synthetic.main.user_message_cell.view.*
+import org.jetbrains.anko.support.v4.fragmentTabHost
+import org.jetbrains.anko.toast
 
-class UserMessageAdapter: ListAdapter<UserMessageDataItem, UserMessageViewHolder>(DIFFCALLBACK) {
+class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolder>(DIFFCALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserMessageViewHolder {
         // 加载view
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.user_message_cell, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.user_message_cell, parent, false)
         // 创建holder
         val holder = UserMessageViewHolder(view)
         // 点击事件
         holder.itemView.setOnClickListener {
-
+            parent.context.toast(
+                "${getItem(holder.adapterPosition).message_plants_uid ?: getItem(
+                    holder.adapterPosition
+                ).message_location_uid}"
+            )
         }
         holder.itemView.user_message_cell_button.setOnClickListener {
-
+            val newFragment = OverviewFragment()
+            newFragment.show((parent.context as AppCompatActivity).supportFragmentManager, "111")
         }
 
         return holder
@@ -71,7 +84,7 @@ class UserMessageAdapter: ListAdapter<UserMessageDataItem, UserMessageViewHolder
     }
 
     // 比较算法
-    private object DIFFCALLBACK: DiffUtil.ItemCallback<UserMessageDataItem>() {
+    private object DIFFCALLBACK : DiffUtil.ItemCallback<UserMessageDataItem>() {
         override fun areItemsTheSame(
             oldItem: UserMessageDataItem,
             newItem: UserMessageDataItem
@@ -90,4 +103,4 @@ class UserMessageAdapter: ListAdapter<UserMessageDataItem, UserMessageViewHolder
 
 }
 
-class UserMessageViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+class UserMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

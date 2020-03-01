@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.adapter.UserMessageAdapter
 import com.xiehaibin.plantshub.model.data.UserMessageDataItem
+import com.xiehaibin.plantshub.view.fragment.DialogFragment
 import com.xiehaibin.plantshub.viewModel.user.UserMessageViewModel
 import kotlinx.android.synthetic.main.user_message_fragment.*
 import org.jetbrains.anko.support.v4.toast

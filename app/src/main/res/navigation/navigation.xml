@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_userMessageFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_userMessageFragment_to_dialogFragment"
+            app:destination="@id/dialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFavoriteFragment"
@@ -125,4 +128,9 @@
             android:id="@+id/action_overviewFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/dialogFragment"
+        android:name="com.xiehaibin.plantshub.view.fragment.DialogFragment"
+        android:label="dialog_fragment"
+        tools:layout="@layout/dialog_fragment" />
 </navigation>

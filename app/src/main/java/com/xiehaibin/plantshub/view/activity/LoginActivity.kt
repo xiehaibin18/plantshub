@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.databinding.ActivityLoginBinding
+import com.xiehaibin.plantshub.view.fragment.DialogFragment
 import com.xiehaibin.plantshub.viewModel.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.startActivity
@@ -68,6 +69,9 @@ class LoginActivity : AppCompatActivity() {
 
         // 点击游客登陆
         login_tourists_hint.setOnClickListener {
+//            supportFragmentManager.let {
+//                DialogFragment().show(it, "")
+//            }
             viewModel.setAccountToken("tourists")
             startActivity<MainActivity>()
         }

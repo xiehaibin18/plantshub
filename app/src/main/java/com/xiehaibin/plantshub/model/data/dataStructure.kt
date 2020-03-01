@@ -147,5 +147,7 @@ data class UserMessageDataItem(
     val name: String?,
     val avatar: String?,
     val time: String?,
-    val content: String?
+    val content: String?,
+    val message_plants_uid: String?,
+    val message_location_uid: String?
 )

@@ -156,6 +156,15 @@
                     android:hint="@string/app_home_search_button_contentDescription" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="#60999999"
+                app:layout_constraintBottom_toTopOf="@+id/home_navbar_imageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

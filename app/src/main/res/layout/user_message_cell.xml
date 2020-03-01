@@ -33,7 +33,7 @@
             android:id="@+id/user_message_cell_nickname_textView"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/user_message_cell_shimmerLayout"
             app:layout_constraintStart_toEndOf="@+id/user_message_cell_shimmerLayout"
             app:layout_constraintTop_toTopOf="@+id/user_message_cell_shimmerLayout"
@@ -41,13 +41,13 @@
 
         <TextView
             android:id="@+id/user_message_cell_time_textView"
-            android:layout_width="80dp"
+            android:layout_width="135dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/user_message_cell_shimmerLayout"
             app:layout_constraintStart_toEndOf="@+id/user_message_cell_nickname_textView"
             app:layout_constraintTop_toTopOf="@+id/user_message_cell_shimmerLayout"
-            tools:text="2020-02-29" />
+            tools:text="2020-02-29 19:30:30" />
 
         <TextView
             android:id="@+id/user_message_cell_textView_content"
@@ -73,7 +73,7 @@
             android:layout_marginEnd="16dp"
             android:text="@string/app_user_message_button_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline29"
