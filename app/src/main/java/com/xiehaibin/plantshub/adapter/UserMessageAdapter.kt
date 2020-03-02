@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.model.data.UserMessageDataItem
+import com.xiehaibin.plantshub.view.fragment.DetailFragment
 import com.xiehaibin.plantshub.view.fragment.DialogFragment
 import com.xiehaibin.plantshub.view.fragment.OverviewFragment
 import com.xiehaibin.plantshub.view.fragment.user.UserMessageFragment
@@ -36,11 +37,27 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
         // 点击事件
         holder.itemView.setOnClickListener {
             if (getItem(holder.adapterPosition).name != "系统通知") {
+                // 以dialog形式打开
                 CommonData.getInstance().setIsDialog(true)
-                val newFragment = OverviewFragment()
-                newFragment.show(
+                // 实例化dialog
+                val newDialog = DetailFragment.newInstance()
+                // 存放数据
+                val info = Bundle()
+                // 存放类型：0为植物，1为位置
+                if(getItem(holder.adapterPosition).message_plants_uid != null) {
+                    info.putInt("type", 0)
+                    // 存放id
+                    info.putInt("itemUid", Integer.parseInt(getItem(holder.adapterPosition).message_plants_uid))
+                } else {
+                    info.putInt("type", 1)
+                    // 存放id
+                    info.putInt("itemUid", Integer.parseInt(getItem(holder.adapterPosition).message_location_uid))
+                }
+                newDialog.setDetailFragmentData(info)
+                //打开dialog
+                newDialog.show(
                     (parent.context as AppCompatActivity).supportFragmentManager,
-                    "OverviewFragment"
+                    "DetailFragment"
                 )
             }
         }
@@ -50,6 +67,7 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
             info.putString("name", getItem(holder.adapterPosition).name)
             info.putString("content", getItem(holder.adapterPosition).content)
             info.putString("senderUid", getItem(holder.adapterPosition).senderUid)
+            info.putString("messageId", getItem(holder.adapterPosition).id)
             if(getItem(holder.adapterPosition).message_plants_uid != null) {
                 info.putString("messageLocation", getItem(holder.adapterPosition).message_plants_uid.toString())
                 info.putInt("type", 0)

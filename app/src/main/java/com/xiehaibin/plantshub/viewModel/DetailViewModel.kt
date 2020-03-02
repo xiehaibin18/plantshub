@@ -1,7 +1,19 @@
 package com.xiehaibin.plantshub.viewModel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 
-class DetailViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class DetailViewModel(application: Application) : AndroidViewModel(application) {
+    val message: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
+    fun getDetailViewData(type: Int, itemUid: Int) {
+        if (type != 400 && itemUid != 400) {
+
+        } else {
+            message.value = "获取数据失败"
+        }
+    }
 }

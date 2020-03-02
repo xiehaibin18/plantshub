@@ -68,6 +68,32 @@ class DialogFragment : androidx.fragment.app.DialogFragment() {
                 }
             }
         }
+        sender_dialog_likeButton.setOnClickListener {
+            doAsync {
+                val client = OkHttpClient()
+                val formBody = FormBody.Builder()
+                    .add("type", "messageLike")
+                    .add("messageId", "${receiverInfo.getString("messageId")}")
+                    .build()
+                val request = Request.Builder()
+                    .url("http://192.168.0.105:3000/api/UserAddData")
+                    .post(formBody)
+                    .build()
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        uiThread { toast("点赞失败，$e") }
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        uiThread {
+                            toast("点赞成功")
+                            sender_dialog_likeButton.isEnabled = false
+                        }
+                    }
+
+                })
+            }
+        }
     }
 
     fun receiverInfo(value: Bundle) {

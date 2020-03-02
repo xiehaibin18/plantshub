@@ -70,4 +70,14 @@
         android:text="@string/app_v26_senderdialog_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sender_dialog_content" />
+
+    <Button
+        android:id="@+id/sender_dialog_likeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="点赞"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sender_dialog_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>
