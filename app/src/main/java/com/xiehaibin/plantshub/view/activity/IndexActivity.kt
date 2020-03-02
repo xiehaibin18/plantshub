@@ -36,7 +36,7 @@ class IndexActivity : AppCompatActivity() {
                     startActivity<LoginActivity>()
                     finish()
                 }
-                3 -> {
+                3, 400, 500 -> {
                     toast(viewModel.message.value ?: "验证失败")
                     startActivity<MainActivity>()
                     finish()

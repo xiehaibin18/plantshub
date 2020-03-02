@@ -25,11 +25,16 @@ import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
+import com.google.gson.Gson
 import com.xiehaibin.plantshub.model.PictureRecognition
 import com.xiehaibin.plantshub.model.data.CommonData
+import com.xiehaibin.plantshub.model.data.PictureRecognitionData
+import com.xiehaibin.plantshub.model.data.PictureRecognitionDataItem
 import com.xiehaibin.plantshub.util.Base64Util
 import com.xiehaibin.plantshub.util.FileUtil
+import com.xiehaibin.plantshub.view.fragment.dialog.PictureRecognitionDialog
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.jetbrains.anko.*
@@ -199,16 +204,22 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                         "client",
                         imgStr,
                         CommonData.getInstance().getPictureRecognitionUrl(),
-                        fun(err_code, msg) {
+                        fun(err_code, msg, data) {
                             uiThread {
                                 camera_upload_button.isEnabled = true
                                 camera_cancel_button.isEnabled = true
-                                toast("${err_code}:${msg}")
                                 if (err_code == 0) {
-                                    startActivity<MainActivity>(
-                                        "err_code" to err_code,
-                                        "msg" to msg
-                                    )
+//                                    startActivity<MainActivity>(
+//                                        "err_code" to err_code,
+//                                        "msg" to msg
+//                                    )
+                                    val info = Bundle()
+                                    info.putString("data",data)
+                                    val pictureRecognitionDialog = PictureRecognitionDialog.newInstance()
+                                    pictureRecognitionDialog.setDialogData(info)
+                                    pictureRecognitionDialog.show(supportFragmentManager,"pictureRecognitionDialog")
+                                } else {
+                                    toast("${err_code}:${msg}")
                                 }
                             }
                         })
