@@ -225,3 +225,61 @@ data class UserFavoriteDataItem(
     val picture: String?,
     val content: String?
 )
+
+data class DetailData(
+    val name: String,
+    val isFavorite: Int,
+    val like: Int,
+    val picture: String?,
+    val introduction: String?,
+    val location: Array<LocationItem>?,
+    val message: Array<UserMessageDataItem>?,
+    val plants: Array<AllPlantsDataItem>?
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DetailData
+
+        if (name != other.name) return false
+        if (isFavorite != other.isFavorite) return false
+        if (like != other.like) return false
+        if (picture != other.picture) return false
+        if (introduction != other.introduction) return false
+        if (location != null) {
+            if (other.location == null) return false
+            if (!location.contentEquals(other.location)) return false
+        } else if (other.location != null) return false
+        if (message != null) {
+            if (other.message == null) return false
+            if (!message.contentEquals(other.message)) return false
+        } else if (other.message != null) return false
+        if (plants != null) {
+            if (other.plants == null) return false
+            if (!plants.contentEquals(other.plants)) return false
+        } else if (other.plants != null) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + isFavorite
+        result = 31 * result + like
+        result = 31 * result + (picture?.hashCode() ?: 0)
+        result = 31 * result + (introduction?.hashCode() ?: 0)
+        result = 31 * result + (location?.contentHashCode() ?: 0)
+        result = 31 * result + (message?.contentHashCode() ?: 0)
+        result = 31 * result + (plants?.contentHashCode() ?: 0)
+        return result
+    }
+}
+
+data class LocationItem(
+    val location_uid: Int,
+    val location_name: String?,
+    val location_introduction: String?,
+    val location_picture: String?,
+    val location_like: Int?
+)

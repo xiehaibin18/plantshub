@@ -1,160 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minWidth="350dp"
-    android:minHeight="500dp"
-    tools:context=".view.fragment.DetailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/detail_swiperRefreshLayout"
+    <data>
+        <variable
+            name="data"
+            type="com.xiehaibin.plantshub.viewModel.DetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:minWidth="350dp"
+        android:minHeight="500dp"
+        tools:context=".view.fragment.DetailFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/detail_swiperRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline39"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <io.supercharge.shimmerlayout.ShimmerLayout
-                android:id="@+id/detail_shimmerLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toTopOf="@+id/guideline37">
-
-                <ImageView
-                    android:id="@+id/detail_picture"
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline39"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_user_logged_avatar"
-                    android:minWidth="300dp"
-                    android:minHeight="300dp"
-                    android:scaleType="fitXY"
-                    tools:src="@tools:sample/avatars" />
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
 
-            </io.supercharge.shimmerlayout.ShimmerLayout>
+                <io.supercharge.shimmerlayout.ShimmerLayout
+                    android:id="@+id/detail_shimmerLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toTopOf="@+id/guideline37">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline38"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
+                    <ImageView
+                        android:id="@+id/detail_picture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/app_user_logged_avatar"
+                        android:minWidth="300dp"
+                        android:minHeight="300dp"
+                        android:scaleType="fitXY"
+                        tools:src="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/detail_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline37"
-                app:layout_constraintStart_toEndOf="@+id/detail_star_button"
-                app:layout_constraintTop_toTopOf="@+id/guideline37"
-                tools:text="兰花" />
+                </io.supercharge.shimmerlayout.ShimmerLayout>
 
-            <TextView
-                android:id="@+id/detail_introduction"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:ellipsize="end"
-                android:maxEms="250"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toBottomOf="@+id/detail_shimmerLayout"
-                tools:text="TextView" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline38"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline37"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.05" />
+                <TextView
+                    android:id="@+id/detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline37"
+                    app:layout_constraintStart_toEndOf="@+id/detail_star_button"
+                    app:layout_constraintTop_toTopOf="@+id/guideline37"
+                    tools:text="兰花"
+                    android:text="@{ data.name }"/>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="分布"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toBottomOf="@+id/detail_introduction" />
+                <TextView
+                    android:id="@+id/detail_introduction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:ellipsize="end"
+                    android:maxEms="250"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_shimmerLayout"
+                    tools:text="TextView"
+                    android:text="@{ data.introduction }"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/detail_distributions_recylerView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline37"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.05" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="留言"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toBottomOf="@+id/detail_distributions_recylerView" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="分布"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_introduction" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/detail_message_recyclerView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_distributions_recylerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-            <TextView
-                android:id="@+id/detail_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline37"
-                app:layout_constraintEnd_toStartOf="@+id/detail_like_button"
-                app:layout_constraintTop_toTopOf="@+id/guideline37"
-                tools:text="100" />
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="留言"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_distributions_recylerView" />
 
-            <ImageView
-                android:id="@+id/detail_like_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_thumb_up_black_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline37"
-                app:layout_constraintEnd_toStartOf="@+id/guideline39"
-                app:layout_constraintTop_toTopOf="@+id/guideline37" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/detail_message_recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-            <ImageView
-                android:id="@+id/detail_star_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_star_border_black_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline37"
-                app:layout_constraintEnd_toStartOf="@+id/guideline38"
-                app:layout_constraintStart_toStartOf="@+id/guideline38"
-                app:layout_constraintTop_toTopOf="@+id/guideline37" />
+                <TextView
+                    android:id="@+id/detail_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline37"
+                    app:layout_constraintEnd_toStartOf="@+id/detail_like_button"
+                    app:layout_constraintTop_toTopOf="@+id/guideline37"
+                    tools:text="100"
+                    android:text="@{ data.like.toString() }"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <ImageView
+                    android:id="@+id/detail_like_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_thumb_up_black_24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline37"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                    app:layout_constraintTop_toTopOf="@+id/guideline37" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/detail_star_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_star_border_black_24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline37"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline38"
+                    app:layout_constraintStart_toStartOf="@+id/guideline38"
+                    app:layout_constraintTop_toTopOf="@+id/guideline37" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
