@@ -219,6 +219,7 @@ data class UserFavoriteData(
 
 data class UserFavoriteDataItem(
     val id: String,
+    val itemUid: Int,
     val type: Int,
     val name: String?,
     val picture: String?,

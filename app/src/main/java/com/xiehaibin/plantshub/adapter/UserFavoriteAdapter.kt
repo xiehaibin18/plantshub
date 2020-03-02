@@ -1,9 +1,11 @@
 package com.xiehaibin.plantshub.adapter
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,8 +15,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.model.data.UserFavoriteDataItem
+import com.xiehaibin.plantshub.view.fragment.DetailFragment
 import kotlinx.android.synthetic.main.user_favorite_cell.view.*
+import org.jetbrains.anko.toast
 
 class UserFavoriteAdapter :
     ListAdapter<UserFavoriteDataItem, UserFavoriteViewHolder>(DIFFCALLBACK) {
@@ -26,7 +31,22 @@ class UserFavoriteAdapter :
         val holder = UserFavoriteViewHolder(view)
         // 点击事件
         holder.itemView.setOnClickListener {
-
+            // 以dialog形式打开
+            CommonData.getInstance().setIsDialog(true)
+            // 实例化dialog
+            val newDialog = DetailFragment.newInstance()
+            // 存放数据
+            val info = Bundle()
+            // 存放类型：0为植物，1为位置
+            info.putInt("type", getItem(holder.adapterPosition).type)
+            // 存放id
+            info.putInt("itemUid", getItem(holder.adapterPosition).itemUid)
+            newDialog.setDetailFragmentData(info)
+            //打开dialog
+            newDialog.show(
+                (parent.context as AppCompatActivity).supportFragmentManager,
+                "DetailFragment"
+            )
         }
 
         return holder

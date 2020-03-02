@@ -45,6 +45,8 @@ class DialogFragment : androidx.fragment.app.DialogFragment() {
                         .add("type", "senderUserMessage")
                         .add("receiverUid", "${receiverInfo.getString("senderUid")}")
                         .add("content", "${sender_dialog_content.text}")
+                        .add("messageType", "${receiverInfo.getInt("type")}")
+                        .add("messageLocation", "${receiverInfo.getString("messageLocation")}")
                         .build()
                     val request = Request.Builder()
                         .url("http://192.168.0.105:3000/api/UserAddData")

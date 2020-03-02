@@ -35,12 +35,14 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
         val holder = UserMessageViewHolder(view)
         // 点击事件
         holder.itemView.setOnClickListener {
-            CommonData.getInstance().setIsDialog(true)
-            val newFragment = OverviewFragment()
-            newFragment.show(
-                (parent.context as AppCompatActivity).supportFragmentManager,
-                "OverviewFragment"
-            )
+            if (getItem(holder.adapterPosition).name != "系统通知") {
+                CommonData.getInstance().setIsDialog(true)
+                val newFragment = OverviewFragment()
+                newFragment.show(
+                    (parent.context as AppCompatActivity).supportFragmentManager,
+                    "OverviewFragment"
+                )
+            }
         }
         holder.itemView.user_message_cell_button.setOnClickListener {
             val senderDialog = DialogFragment.newInstance()
@@ -48,6 +50,13 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
             info.putString("name", getItem(holder.adapterPosition).name)
             info.putString("content", getItem(holder.adapterPosition).content)
             info.putString("senderUid", getItem(holder.adapterPosition).senderUid)
+            if(getItem(holder.adapterPosition).message_plants_uid != null) {
+                info.putString("messageLocation", getItem(holder.adapterPosition).message_plants_uid.toString())
+                info.putInt("type", 0)
+            } else {
+                info.putString("messageLocation", getItem(holder.adapterPosition).message_location_uid.toString())
+                info.putInt("type", 1)
+            }
             senderDialog.receiverInfo(info)
             senderDialog.show(
                 (parent.context as AppCompatActivity).supportFragmentManager,
@@ -59,7 +68,7 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
     }
 
     override fun onBindViewHolder(holder: UserMessageViewHolder, position: Int) {
-        if (getItem(position).name == "系统通知") { holder.itemView.user_message_cell_button.isVisible = false }
+        holder.itemView.user_message_cell_button.isVisible = getItem(position).name != "系统通知"
         holder.itemView.user_message_cell_shimmerLayout.apply {
             setShimmerColor(0x55FFFFFF)
             setShimmerAngle(0)
