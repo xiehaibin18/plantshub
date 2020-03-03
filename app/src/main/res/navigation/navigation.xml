@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_detailFragment_to_overviewFragment"
             app:destination="@id/overviewFragment" />
+        <action
+            android:id="@+id/action_detailFragment_self"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"

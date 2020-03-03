@@ -1,5 +1,7 @@
 package com.xiehaibin.plantshub.model.data
 
+import android.os.Bundle
+
 class CommonData private constructor() {
     companion object {
         private var INSTANCE: CommonData? = null
@@ -80,4 +82,20 @@ class CommonData private constructor() {
     }
 
     fun getIsDialog(): Boolean = isDialog
+    // router
+    private var router: Int = 0
+
+    fun setRouter(value: Int) {
+        router = value
+    }
+
+    fun getRouter(): Int = router
+    // routerData
+    private lateinit var routerData: Bundle
+
+    fun setRouterData(value: Bundle) {
+        routerData = value
+    }
+
+    fun getRouterData(): Bundle = routerData
 }

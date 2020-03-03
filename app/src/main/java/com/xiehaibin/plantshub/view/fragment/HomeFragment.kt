@@ -39,6 +39,14 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        if (CommonData.getInstance().getRouter() != 0) {
+            view!!.findNavController().navigate(CommonData.getInstance().getRouter())
+            when(CommonData.getInstance().getRouter()) {
+                R.id.action_homeFragment_to_userLoggedFragment -> {
+                    CommonData.getInstance().setRouter(0)
+                }
+            }
+        }
         home_textView.text = CommonData.getInstance().getAccountToken()
 
         home_identify_button.setOnClickListener {

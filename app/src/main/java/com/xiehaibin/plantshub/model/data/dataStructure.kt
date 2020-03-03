@@ -227,14 +227,8 @@ data class UserFavoriteDataItem(
 )
 
 data class DetailData(
-    val name: String,
-    val isFavorite: Int,
-    val like: Int,
-    val picture: String?,
-    val introduction: String?,
-    val location: Array<LocationItem>?,
-    val message: Array<UserMessageDataItem>?,
-    val plants: Array<AllPlantsDataItem>?
+    val err_code: Int,
+    val data: Array<DetailDataItem>
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -242,44 +236,56 @@ data class DetailData(
 
         other as DetailData
 
-        if (name != other.name) return false
-        if (isFavorite != other.isFavorite) return false
-        if (like != other.like) return false
-        if (picture != other.picture) return false
-        if (introduction != other.introduction) return false
-        if (location != null) {
-            if (other.location == null) return false
-            if (!location.contentEquals(other.location)) return false
-        } else if (other.location != null) return false
-        if (message != null) {
-            if (other.message == null) return false
-            if (!message.contentEquals(other.message)) return false
-        } else if (other.message != null) return false
-        if (plants != null) {
-            if (other.plants == null) return false
-            if (!plants.contentEquals(other.plants)) return false
-        } else if (other.plants != null) return false
+        if (err_code != other.err_code) return false
+        if (data != null) {
+            if (other.data == null) return false
+            if (!data.contentEquals(other.data)) return false
+        } else if (other.data != null) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + isFavorite
-        result = 31 * result + like
-        result = 31 * result + (picture?.hashCode() ?: 0)
-        result = 31 * result + (introduction?.hashCode() ?: 0)
-        result = 31 * result + (location?.contentHashCode() ?: 0)
-        result = 31 * result + (message?.contentHashCode() ?: 0)
-        result = 31 * result + (plants?.contentHashCode() ?: 0)
+        var result = err_code
+        result = 31 * result + (data?.contentHashCode() ?: 0)
         return result
     }
 }
 
-data class LocationItem(
+data class DetailDataItem(
+    val name: String,
+    val isFavorite: Int,
+    val like: Int,
+    val picture: String?,
+    val introduction: String?,
+    val location: Array<DetailLocationItem>?,
+    val message: Array<DetailMessageItem>?,
+    val plants: Array<DetailPlantsItem>?
+)
+
+data class DetailLocationItem(
     val location_uid: Int,
     val location_name: String?,
     val location_introduction: String?,
     val location_picture: String?,
     val location_like: Int?
+)
+
+data class DetailMessageItem(
+    val message_uid: String,
+    val message_sender_uid: String?,
+    val message_sender_name: String?,
+    val message_receiver_uid: String?,
+    val message_receiver_name: String?,
+    val message_date: String?,
+    val message_content: String?,
+    val message_like: Int?
+)
+
+data class DetailPlantsItem(
+    val plants_uid: Int,
+    val plants_name: String?,
+    val plants_introduction: String?,
+    val plants_picture: String?,
+    val plants_like: Int?
 )

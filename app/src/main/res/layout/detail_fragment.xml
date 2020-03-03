@@ -9,25 +9,19 @@
             type="com.xiehaibin.plantshub.viewModel.DetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/detail_swiperRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minWidth="350dp"
-        android:minHeight="500dp"
-        tools:context=".view.fragment.DetailFragment">
+        android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/detail_swiperRefreshLayout"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:minWidth="400dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline39"
@@ -68,12 +62,12 @@
                     android:id="@+id/detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{ data.name }"
                     android:textSize="30sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline37"
                     app:layout_constraintStart_toEndOf="@+id/detail_star_button"
                     app:layout_constraintTop_toTopOf="@+id/guideline37"
-                    tools:text="兰花"
-                    android:text="@{ data.name }"/>
+                    tools:text="兰花" />
 
                 <TextView
                     android:id="@+id/detail_introduction"
@@ -82,19 +76,19 @@
                     android:layout_marginTop="24dp"
                     android:ellipsize="end"
                     android:maxEms="250"
+                    android:text="@{ data.introduction }"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline39"
                     app:layout_constraintStart_toStartOf="@+id/guideline38"
                     app:layout_constraintTop_toBottomOf="@+id/detail_shimmerLayout"
-                    tools:text="TextView"
-                    android:text="@{ data.introduction }"/>
+                    tools:text="TextView" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline37"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.05" />
+                    app:layout_constraintGuide_percent="0.02" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -132,19 +126,21 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline39"
                     app:layout_constraintStart_toStartOf="@+id/guideline38"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                </androidx.recyclerview.widget.RecyclerView>
 
                 <TextView
                     android:id="@+id/detail_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
+                    android:text="@{ data.like.toString() }"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline37"
                     app:layout_constraintEnd_toStartOf="@+id/detail_like_button"
                     app:layout_constraintTop_toTopOf="@+id/guideline37"
-                    tools:text="100"
-                    android:text="@{ data.like.toString() }"/>
+                    tools:text="100" />
 
                 <ImageView
                     android:id="@+id/detail_like_button"
@@ -162,11 +158,13 @@
                     android:src="@drawable/ic_star_border_black_24dp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline37"
                     app:layout_constraintEnd_toStartOf="@+id/guideline38"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/guideline38"
-                    app:layout_constraintTop_toTopOf="@+id/guideline37" />
+                    app:layout_constraintTop_toTopOf="@+id/guideline37"
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </androidx.core.widget.NestedScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

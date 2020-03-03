@@ -10,6 +10,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import java.io.IOException
+import java.lang.Exception
 
 class DetailViewModel(application: Application) : AndroidViewModel(application) {
     val msg: MutableLiveData<String> by lazy {
@@ -30,17 +31,18 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     val introduction: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
-    val location: MutableLiveData<List<LocationItem>> by lazy {
-        MutableLiveData<List<LocationItem>>()
+    val location: MutableLiveData<List<DetailLocationItem>> by lazy {
+        MutableLiveData<List<DetailLocationItem>>()
     }
-    val message: MutableLiveData<List<UserMessageDataItem>> by lazy {
-        MutableLiveData<List<UserMessageDataItem>>()
+    val message: MutableLiveData<List<DetailMessageItem>> by lazy {
+        MutableLiveData<List<DetailMessageItem>>()
     }
-    val plants: MutableLiveData<List<AllPlantsDataItem>> by lazy {
-        MutableLiveData<List<AllPlantsDataItem>>()
+    val plants: MutableLiveData<List<DetailPlantsItem>> by lazy {
+        MutableLiveData<List<DetailPlantsItem>>()
     }
 
     fun getDetailViewData(type: Int, itemUid: Int) {
+        val accountToken = CommonData.getInstance().getAccountToken()
         if (type != 400 && itemUid != 400) {
             doAsync {
                 val client = OkHttpClient()
@@ -48,6 +50,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                     .add("type", "getDetailData")
                     .add("uidType", type.toString())
                     .add("itemUid", itemUid.toString())
+                    .add("accountToken", accountToken)
                     .build()
                 val request = Request.Builder()
                     .url("http://192.168.0.105:3000/api/UserGetData")
@@ -59,18 +62,19 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
                     }
 
                     override fun onResponse(call: Call, response: Response) {
+                        val detailData =
+                            Gson().fromJson(response.body!!.string(), DetailData::class.java).data[0]
                         uiThread {
-                            val detailData = Gson().fromJson(response.body!!.string(), DetailData::class.java)
                             name.value = detailData.name
                             isFavorite.value = detailData.isFavorite
                             like.value = detailData.like
                             picture.value = detailData.picture
                             introduction.value = detailData.introduction
-                            message.value = detailData.message!!.toList()
+                            message.value = detailData.message?.toList()
                             if (type == 0) {
-                                location.value = detailData.location!!.toList()
+                                location.value = detailData.location?.toList()
                             } else {
-                                plants.value = detailData.plants!!.toList()
+                                plants.value = detailData.plants?.toList()
                             }
                         }
                     }
@@ -82,7 +86,7 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun userFavorite (type: Int, itemUid: Int) {
+    fun userFavorite(type: Int, itemUid: Int) {
         val accountToken = CommonData.getInstance().getAccountToken()
         val _isFavorite = isFavorite.value
         if (type != 400 && itemUid != 400) {
@@ -126,6 +130,33 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             }
         } else {
             msg.value = "获取数据失败"
+        }
+    }
+
+    fun userLike(type: Int, itemUid: Int) {
+        doAsync {
+            val client = OkHttpClient()
+            val formBody = FormBody.Builder()
+                .add("type", "PorLLike")
+                .add("itemType", type.toString())
+                .add("itemUid", itemUid.toString())
+                .build()
+            val request = Request.Builder()
+                .url("http://192.168.0.105:3000/api/UserAddData")
+                .post(formBody)
+                .build()
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    uiThread { msg.value = "点赞失败，$e" }
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    uiThread {
+                        msg.value = "点赞成功"
+                    }
+                }
+
+            })
         }
     }
 
