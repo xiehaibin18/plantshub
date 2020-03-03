@@ -7,14 +7,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.adapter.OverviewAdapter
 import com.xiehaibin.plantshub.databinding.HomeFragmentBinding
 import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.view.activity.CameraActivity
 import com.xiehaibin.plantshub.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 
 class HomeFragment : Fragment() {
@@ -67,12 +71,24 @@ class HomeFragment : Fragment() {
         }
         // swiperRefreshLayout
         home_swiperRefreshLayout.setOnRefreshListener {
-            if (home_swiperRefreshLayout.isRefreshing) {
-                home_swiperRefreshLayout.isRefreshing = false
-            }
+            viewModel.getData()
         }
-
-
+        // 实例化OverviewAdapter
+        val overviewAdapter = OverviewAdapter()
+        // recyclerView设置
+        home_recyclerView.apply {
+            adapter = overviewAdapter
+            layoutManager = GridLayoutManager(requireContext(), 1)
+        }
+        viewModel.overviewData.observe(this, Observer {
+            // 提交数据给OverviewAdapter
+            overviewAdapter.submitList(it)
+            home_swiperRefreshLayout.isRefreshing = false
+        })
+        viewModel.message.observe(this, Observer {
+            toast(it)
+        })
+        viewModel.getData()
     }
 
 }

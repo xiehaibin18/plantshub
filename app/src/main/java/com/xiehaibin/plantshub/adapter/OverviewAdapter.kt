@@ -36,7 +36,7 @@ class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCA
             setShimmerAngle(0)
             startShimmerAnimation()
         }
-        holder.itemView.overview_cell_name_textView.text = "植物名：${getItem(position).plants_name}"
+        holder.itemView.overview_cell_name_textView.text = getItem(position).plants_name
         holder.itemView.overview_cell_textView2.text = getItem(position).plants_introduction
         holder.itemView.overview_cell_like.text = getItem(position).plants_like.toString()
         // 加载图片

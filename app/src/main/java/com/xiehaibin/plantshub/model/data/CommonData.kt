@@ -42,6 +42,9 @@ class CommonData private constructor() {
     // 获取UserFavoriteData的url
     fun getUserFavoriteUrl() = baseUrl.plus("/api/UserGetData")
 
+    // 获取GetListData的url
+    fun getListDataUrl() = baseUrl.plus("/api/UserGetData")
+
     // accountToken
     private var accountToken: String = ""
 
