@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -33,10 +34,11 @@ import com.xiehaibin.plantshub.viewModel.DetailViewModel
 import kotlinx.android.synthetic.main.detail_fragment.*
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import java.lang.Exception
 import java.nio.channels.spi.SelectorProvider
 
-class DetailFragment : DialogFragment() {
+class DetailFragment : androidx.fragment.app.DialogFragment() {
 
     companion object {
         fun newInstance() = DetailFragment()
@@ -216,6 +218,30 @@ class DetailFragment : DialogFragment() {
                 detailFragmentData.getInt("itemUid", 400)
             )
         }
+        detail_message_add_button.setOnClickListener {
+            if (!CommonData.getInstance().getIsDialog()) {
+                detailFragmentData = CommonData.getInstance().getRouterData()
+                val senderDialog =
+                    com.xiehaibin.plantshub.view.fragment.DialogFragment.newInstance()
+                val info = Bundle()
+                info.putString(
+                    "messageLocation",
+                    detailFragmentData.getInt("itemUid", 400).toString()
+                )
+                info.putInt("type", detailFragmentData.getInt("type", 400))
+                senderDialog.receiverInfo(info)
+                senderDialog.show((context as AppCompatActivity).supportFragmentManager,
+                    "DialogFragment"
+                )
+            } else {
+                toast("点击图片进入该页面才能留言哦")
+            }
+        }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        CommonData.getInstance().setIsDialog(false)
     }
 
     fun setDetailFragmentData(value: Bundle) {

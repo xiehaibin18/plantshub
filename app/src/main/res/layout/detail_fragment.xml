@@ -163,6 +163,15 @@
                     app:layout_constraintTop_toTopOf="@+id/guideline37"
                     app:layout_constraintVertical_bias="0.0" />
 
+                <Button
+                    android:id="@+id/detail_message_add_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="@string/app_add_button_text"
+                    app:layout_constraintBottom_toTopOf="@+id/detail_message_recyclerView"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline39"
+                    app:layout_constraintTop_toBottomOf="@+id/detail_distributions_recylerView" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 

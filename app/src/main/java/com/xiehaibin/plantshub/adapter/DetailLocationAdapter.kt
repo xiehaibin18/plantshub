@@ -27,6 +27,23 @@ class DetailLocationAdapter : ListAdapter<DetailLocationItem, DetailLocationView
         holder.itemView.setOnClickListener {
             if (CommonData.getInstance().getIsDialog()) {
                 parent.context.toast("点击图片进入该页面才能查看哦")
+            } else {
+                // 以dialog形式打开
+                CommonData.getInstance().setIsDialog(true)
+                // 实例化dialog
+                val newDialog = DetailFragment.newInstance()
+                // 存放数据
+                val info = Bundle()
+                // 存放类型：0为植物，1为位置
+                info.putInt("type", 1)
+                // 存放id
+                info.putInt("itemUid", getItem(holder.adapterPosition).location_uid)
+                newDialog.setDetailFragmentData(info)
+                //打开dialog
+                newDialog.show(
+                    (parent.context as AppCompatActivity).supportFragmentManager,
+                    "DetailFragment"
+                )
             }
         }
 
