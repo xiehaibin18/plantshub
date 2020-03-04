@@ -57,7 +57,15 @@ class HomeFragment : Fragment() {
             startActivity<CameraActivity>()
         }
 
+        home_allLocation_button.setOnClickListener {
+            CommonData.getInstance().setRouter(0)
+            CommonData.getInstance().setOverviewDataType("allLocation")
+            it.findNavController().navigate(R.id.action_homeFragment_to_overviewFragment)
+        }
+
         home_allPlants_button.setOnClickListener {
+            CommonData.getInstance().setRouter(0)
+            CommonData.getInstance().setOverviewDataType("allPlants")
             it.findNavController().navigate(R.id.action_homeFragment_to_overviewFragment)
         }
 
@@ -92,6 +100,10 @@ class HomeFragment : Fragment() {
         viewModel.overviewData.value?.size ?: viewModel.getData()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        CommonData.getInstance().setRouter(0)
+    }
     fun setHomeFragmentData(value: Bundle) {
         homeFragmentData = value
     }

@@ -57,14 +57,7 @@ class OverviewFragment : DialogFragment() {
         viewModel.message.observe(this, Observer {
             toast(it)
         })
-        viewModel.getOverviewData()
-        if (CommonData.getInstance().getIsDialog()) {
-            overview_goto_button.isVisible = true
-            CommonData.getInstance().setIsDialog(false)
-        }
-        overview_goto_button.setOnClickListener {
-            startActivity<MainActivity>()
-        }
+        viewModel.overviewData.value?.size ?: viewModel.getOverviewData()
     }
 
 

@@ -35,12 +35,10 @@ class GetOverviewData {
 
             override fun onResponse(call: Call, response: Response) {
                 try {
-                    if (_type === "allPlants") {
-                        val overviewData =
-                            Gson().fromJson(response.body!!.string(), AllPlantsData::class.java)
-                                .data.toList()
-                        _callback(0, "ok", overviewData)
-                    }
+                    val overviewData =
+                        Gson().fromJson(response.body!!.string(), AllPlantsData::class.java)
+                            .data.toList()
+                    _callback(0, "ok", overviewData)
                 } catch (e: Exception) {
                     _callback(500, "$e", null)
                 }

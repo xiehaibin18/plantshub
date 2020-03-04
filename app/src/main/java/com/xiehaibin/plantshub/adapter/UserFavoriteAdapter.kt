@@ -66,7 +66,7 @@ class UserFavoriteAdapter :
         holder.itemView.user_favorite_cell_content_textView.text = getItem(position).content
         // 加载图片
         Glide.with(holder.itemView)
-            .load(getItem(position).picture)
+            .load("${CommonData.getInstance().baseUrl}${getItem(position).picture}")
             .placeholder(R.drawable.ic_image_gary_24dp)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(

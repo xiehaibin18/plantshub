@@ -44,6 +44,7 @@ class OverviewAdapter : ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFC
             if (CommonData.getInstance().getRouter() == 1001){
                 parent.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
             } else {
+                CommonData.getInstance().setRouter(0)
                 parent.findNavController().navigate(R.id.action_overviewFragment_to_detailFragment)
             }
         }
@@ -91,7 +92,7 @@ class OverviewAdapter : ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFC
         holder.itemView.overview_cell_like.text = getItem(position).plants_like.toString()
         // 加载图片
         Glide.with(holder.itemView)
-            .load(getItem(position).plants_picture)
+            .load("${CommonData.getInstance().baseUrl}${getItem(position).plants_picture}")
             .placeholder(R.drawable.ic_image_gary_24dp)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(

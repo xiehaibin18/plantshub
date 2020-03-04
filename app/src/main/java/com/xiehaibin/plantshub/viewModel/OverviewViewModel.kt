@@ -21,11 +21,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
 
     fun getOverviewData() {
         // 获取url
-        val url: String = CommonData.getInstance().getOverviewDataUrl()
+        var url: String = CommonData.getInstance().getOverviewDataUrl()
         val getOverviewData = GetOverviewData()
         doAsync {
             getOverviewData.post(
-                "allPlants",
+                CommonData.getInstance().getOverviewDataType(),
                 url,
                 fun(err_code, msg, data) {
                     uiThread {

@@ -97,7 +97,7 @@ class UserMessageAdapter : ListAdapter<UserMessageDataItem, UserMessageViewHolde
         holder.itemView.user_message_cell_textView_content.text = "内容：${getItem(position).content}"
         // 加载图片
         Glide.with(holder.itemView)
-            .load(getItem(position).avatar)
+            .load("${CommonData.getInstance().baseUrl}${getItem(position).avatar}")
             .placeholder(R.drawable.ic_image_gary_24dp)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
