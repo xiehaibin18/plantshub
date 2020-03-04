@@ -101,7 +101,7 @@ class HomeFragment : Fragment() {
             CommonData.getInstance().setRouter(0)
             CommonData.getInstance().setOverviewDataType("myLocationPlants")
             // 获取地理位置失败
-            alert("获取位置失败，手动输入您的位置吧", "我的位置") {
+            alert("检查并输入正确的定位位置", "我的位置") {
                 var input: EditText? = null
                 customView {
                     input = editText() {

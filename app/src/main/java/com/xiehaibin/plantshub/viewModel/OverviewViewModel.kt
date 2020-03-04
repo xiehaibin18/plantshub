@@ -35,17 +35,20 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         val getListData = GetListData()
         val _search = search.value
         if (searchType.value == 400) {
-            println(1111111111111)
             doAsync {
                 getOverviewData.post(
                     CommonData.getInstance().getOverviewDataType(),
                     url,
                     fun(err_code, msg, data) {
                         uiThread {
-                            if (err_code == 0) {
+                            if (err_code == 0 && data!!.isNotEmpty()) {
                                 overviewData.value = data
                             } else {
-                                message.value = msg
+                                if (data!!.isEmpty()){
+                                    message.value = "无"
+                                }else{
+                                    message.value = msg
+                                }
                             }
                         }
                     }
@@ -64,10 +67,14 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                         url,
                         fun(err_code, msg, data) {
                             uiThread {
-                                if (err_code == 0) {
+                                if (err_code == 0 && data!!.isNotEmpty()) {
                                     overviewData.value = data
                                 } else {
-                                    message.value = msg
+                                    if (data!!.isEmpty()){
+                                        message.value = "无"
+                                    }else{
+                                        message.value = msg
+                                    }
                                 }
                             }
                         }
@@ -81,10 +88,14 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                         url,
                         fun(err_code, msg, data) {
                             uiThread {
-                                if (err_code == 0) {
+                                if (err_code == 0 && data!!.isNotEmpty()) {
                                     overviewData.value = data
                                 } else {
-                                    message.value = msg
+                                    if (data!!.isEmpty()){
+                                        message.value = "无"
+                                    }else{
+                                        message.value = msg
+                                    }
                                 }
                             }
                         }

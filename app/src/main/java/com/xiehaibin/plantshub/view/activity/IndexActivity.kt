@@ -7,6 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import com.baidu.location.BDAbstractLocationListener
+import com.baidu.location.BDLocation
+import com.baidu.location.LocationClient
+import com.baidu.location.LocationClientOption
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.CheckAccountToken
 import com.xiehaibin.plantshub.model.data.CommonData
@@ -20,11 +24,21 @@ import org.jetbrains.anko.uiThread
 class IndexActivity : AppCompatActivity() {
 
     private val viewModel: IndexViewModel by viewModels()
+    var mLocationClient: LocationClient? = null
+    private val myListener: MyLocationListener = MyLocationListener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
         CommonData.getInstance().setRouter(0)
+        mLocationClient = LocationClient(applicationContext)
+        mLocationClient!!.registerLocationListener(myListener)
+        val option = LocationClientOption()
+        option.setIsNeedAddress(true)
+        option.setCoorType("bd09ll")
+        option.isOpenGps = true
+        mLocationClient!!.locOption = option
+        mLocationClient!!.start()
         // 观察状态码变化
         val statusCodeObserver = Observer<Int> {
             // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
@@ -53,4 +67,12 @@ class IndexActivity : AppCompatActivity() {
 //            finish()
 //        },100)
     }
+}
+
+class MyLocationListener : BDAbstractLocationListener(){
+    override fun onReceiveLocation(location: BDLocation?) {
+        val province = location!!.province
+        CommonData.getInstance().setMyLocation(province)
+    }
+
 }
