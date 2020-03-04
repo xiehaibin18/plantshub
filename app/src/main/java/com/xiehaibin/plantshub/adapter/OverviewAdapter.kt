@@ -49,33 +49,38 @@ class OverviewAdapter : ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFC
             }
         }
         holder.itemView.overview_cell_like_button.setOnClickListener {
-            doAsync {
-                val client = OkHttpClient()
-                val formBody = FormBody.Builder()
-                    .add("type", "PorLLike")
-                    .add("itemType", getItem(holder.adapterPosition).type.toString())
-                    .add("itemUid", getItem(holder.adapterPosition).plants_uid.toString())
-                    .build()
-                val request = Request.Builder()
-                    .url("http://192.168.0.105:3000/api/UserAddData")
-                    .post(formBody)
-                    .build()
-                client.newCall(request).enqueue(object : Callback {
-                    override fun onFailure(call: Call, e: IOException) {
-                        uiThread { parent.context.toast("点赞失败，$e") }
-                    }
-
-                    override fun onResponse(call: Call, response: Response) {
-                        uiThread {
-                            parent.context.toast("点赞成功")
-                            val text = holder.itemView.overview_cell_like.text.toString()
-                            holder.itemView.overview_cell_like.text =
-                                Integer.parseInt(text).plus(1).toString()
+            if (CommonData.getInstance().getAccountToken() == "tourists" || CommonData.getInstance().getAccountToken() == ""){
+                parent.context.toast("请先登录")
+            } else {
+                doAsync {
+                    val client = OkHttpClient()
+                    val formBody = FormBody.Builder()
+                        .add("type", "PorLLike")
+                        .add("itemType", getItem(holder.adapterPosition).type.toString())
+                        .add("itemUid", getItem(holder.adapterPosition).plants_uid.toString())
+                        .build()
+                    val request = Request.Builder()
+                        .url("http://192.168.0.105:3000/api/UserAddData")
+                        .post(formBody)
+                        .build()
+                    client.newCall(request).enqueue(object : Callback {
+                        override fun onFailure(call: Call, e: IOException) {
+                            uiThread { parent.context.toast("点赞失败，$e") }
                         }
-                    }
 
-                })
+                        override fun onResponse(call: Call, response: Response) {
+                            uiThread {
+                                parent.context.toast("点赞成功")
+                                val text = holder.itemView.overview_cell_like.text.toString()
+                                holder.itemView.overview_cell_like.text =
+                                    Integer.parseInt(text).plus(1).toString()
+                            }
+                        }
+
+                    })
+                }
             }
+
         }
 
         return holder

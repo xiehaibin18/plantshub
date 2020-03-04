@@ -32,7 +32,8 @@ class DialogFragment : androidx.fragment.app.DialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sender_dialog_name_textView.text = "回复：@${receiverInfo.getString("name")} ${receiverInfo.getString("content") }"
+        sender_dialog_name_textView.text =
+            "回复：@${receiverInfo.getString("name")} ${receiverInfo.getString("content")}"
         sender_dialog_sendeButton.setOnClickListener {
             if (sender_dialog_content.text.isNullOrBlank()) {
                 toast("请输入内容")
@@ -69,6 +70,7 @@ class DialogFragment : androidx.fragment.app.DialogFragment() {
             }
         }
         sender_dialog_likeButton.setOnClickListener {
+
             doAsync {
                 val client = OkHttpClient()
                 val formBody = FormBody.Builder()

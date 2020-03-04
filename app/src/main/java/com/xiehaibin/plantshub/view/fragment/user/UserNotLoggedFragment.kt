@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.view.activity.LoginActivity
 import com.xiehaibin.plantshub.viewModel.user.UserNotLoggedViewModel
 import kotlinx.android.synthetic.main.user_not_logged_fragment.*
@@ -32,6 +33,7 @@ class UserNotLoggedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        CommonData.getInstance().setRouter(0)
         user_not_logged_login_button.setOnClickListener {
             startActivity<LoginActivity>()
         }

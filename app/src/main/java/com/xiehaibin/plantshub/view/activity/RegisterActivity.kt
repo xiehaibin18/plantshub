@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.databinding.ActivityLoginBinding
 import com.xiehaibin.plantshub.databinding.ActivityRegisterBinding
+import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.viewModel.DetailViewModel
 import com.xiehaibin.plantshub.viewModel.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -22,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_register)
+        CommonData.getInstance().setRouter(0)
         // DataBing
         val binding: ActivityRegisterBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_register)

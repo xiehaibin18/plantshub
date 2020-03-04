@@ -166,45 +166,57 @@ class DetailFragment : androidx.fragment.app.DialogFragment() {
                     detail_star_button.background =
                         resources.getDrawable(R.drawable.ic_star_border_black_24dp)
                     detail_star_button.setOnClickListener {
-                        detail_star_button.isEnabled = false
-                        if (!CommonData.getInstance().getIsDialog()) {
-                            detailFragmentData = CommonData.getInstance().getRouterData()
+                        if (CommonData.getInstance().getAccountToken() == "tourists" || CommonData.getInstance().getAccountToken() == "") {
+                            toast("请先登录")
+                        } else {
+                            detail_star_button.isEnabled = false
+                            if (!CommonData.getInstance().getIsDialog()) {
+                                detailFragmentData = CommonData.getInstance().getRouterData()
+                            }
+                            viewModel.userFavorite(
+                                detailFragmentData.getInt("type", 400),
+                                detailFragmentData.getInt("itemUid", 400)
+                            )
                         }
-                        viewModel.userFavorite(
-                            detailFragmentData.getInt("type", 400),
-                            detailFragmentData.getInt("itemUid", 400)
-                        )
                     }
                 }
                 1 -> {
                     detail_star_button.background =
                         resources.getDrawable(R.drawable.ic_star_black_24dp)
                     detail_star_button.setOnClickListener {
-                        detail_star_button.isEnabled = false
-                        if (!CommonData.getInstance().getIsDialog()) {
-                            detailFragmentData = CommonData.getInstance().getRouterData()
+                        if (CommonData.getInstance().getAccountToken() == "tourists" || CommonData.getInstance().getAccountToken() == "") {
+                            toast("请先登录")
+                        } else {
+                            detail_star_button.isEnabled = false
+                            if (!CommonData.getInstance().getIsDialog()) {
+                                detailFragmentData = CommonData.getInstance().getRouterData()
+                            }
+                            viewModel.userFavorite(
+                                detailFragmentData.getInt("type", 400),
+                                detailFragmentData.getInt("itemUid", 400)
+                            )
                         }
-                        viewModel.userFavorite(
-                            detailFragmentData.getInt("type", 400),
-                            detailFragmentData.getInt("itemUid", 400)
-                        )
                     }
                 }
             }
         })
         // 点赞
         detail_like_button.setOnClickListener {
-            if (!CommonData.getInstance().getIsDialog()) {
-                detailFragmentData = CommonData.getInstance().getRouterData()
+            if (CommonData.getInstance().getAccountToken() == "tourists" || CommonData.getInstance().getAccountToken() == "") {
+                toast("请先登录")
+            } else {
+                if (!CommonData.getInstance().getIsDialog()) {
+                    detailFragmentData = CommonData.getInstance().getRouterData()
+                }
+                viewModel.userLike(
+                    detailFragmentData.getInt("type", 400),
+                    detailFragmentData.getInt("itemUid", 400)
+                )
+                viewModel.getDetailViewData(
+                    detailFragmentData.getInt("type", 400),
+                    detailFragmentData.getInt("itemUid", 400)
+                )
             }
-            viewModel.userLike(
-                detailFragmentData.getInt("type", 400),
-                detailFragmentData.getInt("itemUid", 400)
-            )
-            viewModel.getDetailViewData(
-                detailFragmentData.getInt("type", 400),
-                detailFragmentData.getInt("itemUid", 400)
-            )
         }
         // 报错信息
         viewModel.msg.observe(this, Observer {
@@ -221,23 +233,27 @@ class DetailFragment : androidx.fragment.app.DialogFragment() {
             )
         }
         detail_message_add_button.setOnClickListener {
-            if (!CommonData.getInstance().getIsDialog()) {
-                detailFragmentData = CommonData.getInstance().getRouterData()
-                val senderDialog =
-                    com.xiehaibin.plantshub.view.fragment.DialogFragment.newInstance()
-                val info = Bundle()
-                info.putString(
-                    "messageLocation",
-                    detailFragmentData.getInt("itemUid", 400).toString()
-                )
-                info.putInt("type", detailFragmentData.getInt("type", 400))
-                senderDialog.receiverInfo(info)
-                senderDialog.show(
-                    (context as AppCompatActivity).supportFragmentManager,
-                    "DialogFragment"
-                )
+            if (CommonData.getInstance().getAccountToken() == "tourists" || CommonData.getInstance().getAccountToken() == "") {
+                toast("请先登录")
             } else {
-                toast("点击图片进入该页面才能留言哦")
+                if (!CommonData.getInstance().getIsDialog()) {
+                    detailFragmentData = CommonData.getInstance().getRouterData()
+                    val senderDialog =
+                        com.xiehaibin.plantshub.view.fragment.DialogFragment.newInstance()
+                    val info = Bundle()
+                    info.putString(
+                        "messageLocation",
+                        detailFragmentData.getInt("itemUid", 400).toString()
+                    )
+                    info.putInt("type", detailFragmentData.getInt("type", 400))
+                    senderDialog.receiverInfo(info)
+                    senderDialog.show(
+                        (context as AppCompatActivity).supportFragmentManager,
+                        "DialogFragment"
+                    )
+                } else {
+                    toast("点击图片进入该页面才能留言哦")
+                }
             }
         }
     }

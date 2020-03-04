@@ -94,7 +94,7 @@ class CommonData private constructor() {
 
     fun getRouter(): Int = router
     // routerData
-    private lateinit var routerData: Bundle
+    private var routerData: Bundle = Bundle()
 
     fun setRouterData(value: Bundle) {
         routerData = value

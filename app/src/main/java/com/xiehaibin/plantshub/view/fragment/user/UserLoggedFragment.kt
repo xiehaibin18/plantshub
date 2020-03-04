@@ -48,6 +48,9 @@ class UserLoggedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         CommonData.getInstance().setRouter(0)
+        if (CommonData.getInstance().getAccountToken() == "tourists" || CommonData.getInstance().getAccountToken() == ""){
+            view!!.findNavController().navigate(R.id.action_userLoggedFragment_to_homeFragment)
+        }
         viewModel.userName.value ?: viewModel.getUserInfo()
         viewModel.userName.observe(this, Observer {
             user_logged_name.text = "${it}欢迎您"

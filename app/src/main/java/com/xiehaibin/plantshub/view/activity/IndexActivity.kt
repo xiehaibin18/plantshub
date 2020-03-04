@@ -24,6 +24,7 @@ class IndexActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
+        CommonData.getInstance().setRouter(0)
         // 观察状态码变化
         val statusCodeObserver = Observer<Int> {
             // status_code: 0验证成功，1无，2数据出错，3网络请求失败,4本地无AccountToken
