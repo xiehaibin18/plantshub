@@ -21,7 +21,7 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     }
 
     val searchType: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+        MutableLiveData<Int>(400)
     }
 
     val message: MutableLiveData<String> by lazy {
@@ -34,9 +34,9 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         val getOverviewData = GetOverviewData()
         val getListData = GetListData()
         val _search = search.value
-        if (_search === "null") {
+        if (searchType.value == 400) {
+            println(1111111111111)
             doAsync {
-                println(11111111111111111)
                 getOverviewData.post(
                     CommonData.getInstance().getOverviewDataType(),
                     url,
@@ -51,9 +51,11 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
                     }
                 )
             }
-        } else if (_search == "") {
-            message.value = "请输入内容"
-        } else if (_search !== "null" && _search !== "") {
+        } else {
+            if (_search.isNullOrBlank()) {
+                message.value = "请输入内容"
+                return
+            }
             if (searchType.value == 1){
                 doAsync {
                     getListData.post(
