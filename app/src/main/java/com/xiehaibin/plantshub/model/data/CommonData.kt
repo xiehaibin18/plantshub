@@ -110,4 +110,13 @@ class CommonData private constructor() {
     }
 
     fun getOverviewDataType() = overviewDataType
+
+    // myLocation
+    private var myLocation: String = ""
+
+    fun setMyLocation(value: String) {
+        myLocation = value
+    }
+
+    fun getMyLocation() = myLocation
 }

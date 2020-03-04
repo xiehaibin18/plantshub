@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.text.set
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,9 +19,15 @@ import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.view.activity.CameraActivity
 import com.xiehaibin.plantshub.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.jetbrains.anko.custom.customView
+import org.jetbrains.anko.customView
+import org.jetbrains.anko.editText
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.yesButton
 
 
 class HomeFragment : Fragment() {
@@ -69,6 +77,26 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(R.id.action_homeFragment_to_overviewFragment)
         }
 
+        home_myLocation_button.setOnClickListener { view ->
+            CommonData.getInstance().setRouter(0)
+            CommonData.getInstance().setOverviewDataType("myLocationPlants")
+            // 获取地理位置失败
+            alert( "获取位置失败，手动输入您的位置吧", "我的位置") {
+                var input: EditText? = null
+                customView {
+                    input = editText() {
+                        hint = "请输入完整的省/市级行政区名称"
+                    }
+                    input!!.setText(CommonData.getInstance().getMyLocation())
+                }
+                yesButton {
+                    CommonData.getInstance().setMyLocation(input?.text.toString())
+                    val arguments = Bundle()
+                    arguments.putString("search", input?.text.toString())
+                    view.findNavController().navigate(R.id.action_homeFragment_to_overviewFragment, arguments)
+                }
+            }.show()
+        }
         home_user_button.setOnClickListener {
             val acctoken = CommonData.getInstance().getAccountToken()
             if (acctoken.isNullOrBlank() || acctoken == "tourists") {

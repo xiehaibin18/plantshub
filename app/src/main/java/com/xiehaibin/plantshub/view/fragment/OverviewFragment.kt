@@ -57,6 +57,8 @@ class OverviewFragment : DialogFragment() {
         viewModel.message.observe(this, Observer {
             toast(it)
         })
+        val search: String = arguments?.getString("search") ?: "null"
+        viewModel.search.value = search
         viewModel.overviewData.value?.size ?: viewModel.getOverviewData()
     }
 
