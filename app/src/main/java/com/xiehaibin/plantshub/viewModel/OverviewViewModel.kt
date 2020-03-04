@@ -20,6 +20,10 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         MutableLiveData<String>()
     }
 
+    val searchType: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
+    }
+
     val message: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
@@ -50,22 +54,40 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         } else if (_search == "") {
             message.value = "请输入内容"
         } else if (_search !== "null" && _search !== "") {
-            println(_search)
-            doAsync {
-                getListData.post(
-                    "myLocationPlants",
-                    _search,
-                    url,
-                    fun(err_code, msg, data) {
-                        uiThread {
-                            if (err_code == 0) {
-                                overviewData.value = data
-                            } else {
-                                message.value = msg
+            if (searchType.value == 1){
+                doAsync {
+                    getListData.post(
+                        "myLocationPlants",
+                        _search,
+                        url,
+                        fun(err_code, msg, data) {
+                            uiThread {
+                                if (err_code == 0) {
+                                    overviewData.value = data
+                                } else {
+                                    message.value = msg
+                                }
                             }
                         }
-                    }
-                )
+                    )
+                }
+            } else if (searchType.value == 0) {
+                doAsync {
+                    getListData.post(
+                        "searchLocationPlants",
+                        _search,
+                        url,
+                        fun(err_code, msg, data) {
+                            uiThread {
+                                if (err_code == 0) {
+                                    overviewData.value = data
+                                } else {
+                                    message.value = msg
+                                }
+                            }
+                        }
+                    )
+                }
             }
         }
     }

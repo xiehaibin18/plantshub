@@ -85,7 +85,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorMainLight"
-                    android:hint="@string/app_home_search_button_contentDescription" />
+                    android:hint="@string/app_home_search_button_contentDescription"
+                    android:singleLine="true"
+                    android:text="@={data.searchText}" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.cardview.widget.CardView

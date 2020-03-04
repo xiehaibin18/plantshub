@@ -57,11 +57,18 @@ class OverviewFragment : DialogFragment() {
         viewModel.message.observe(this, Observer {
             toast(it)
         })
-        val search: String = arguments?.getString("search") ?: "null"
-        viewModel.search.value = search
+        val searchType = arguments?.getInt("searchType") ?: 400
+        // 位置
+        if (searchType == 1) {
+            val search: String = arguments?.getString("search") ?: "null"
+            viewModel.search.value = search
+        } else if (searchType == 0) {
+            val search: String = arguments?.getString("search") ?: "null"
+            viewModel.search.value = search
+        }
+        viewModel.searchType.value = searchType
         viewModel.overviewData.value?.size ?: viewModel.getOverviewData()
     }
-
 
 
 }

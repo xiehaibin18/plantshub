@@ -16,6 +16,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val message: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
+    val searchText: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
     fun getData() {
         // 获取url
         val url: String = CommonData.getInstance().getListDataUrl()

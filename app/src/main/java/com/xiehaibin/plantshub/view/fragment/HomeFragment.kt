@@ -65,6 +65,26 @@ class HomeFragment : Fragment() {
             startActivity<CameraActivity>()
         }
 
+        viewModel.searchText.observe(this, Observer {
+            if (it == "#植物") {
+                toast("进入植物搜索模式")
+            } else if (it == "#位置") {
+                toast("进入位置搜索模式")
+            }
+        })
+        home_search_button.setOnClickListener { view ->
+            if (viewModel.searchText.value.isNullOrBlank()) {
+                toast("请输入内容")
+            } else {
+                CommonData.getInstance().setRouter(0)
+                val searchEditTextData = Bundle()
+                searchEditTextData.putString("search", viewModel.searchText.value)
+                searchEditTextData.putInt("searchType", 0)
+                view.findNavController()
+                    .navigate(R.id.action_homeFragment_to_overviewFragment, searchEditTextData)
+            }
+        }
+
         home_allLocation_button.setOnClickListener {
             CommonData.getInstance().setRouter(0)
             CommonData.getInstance().setOverviewDataType("allLocation")
@@ -81,7 +101,7 @@ class HomeFragment : Fragment() {
             CommonData.getInstance().setRouter(0)
             CommonData.getInstance().setOverviewDataType("myLocationPlants")
             // 获取地理位置失败
-            alert( "获取位置失败，手动输入您的位置吧", "我的位置") {
+            alert("获取位置失败，手动输入您的位置吧", "我的位置") {
                 var input: EditText? = null
                 customView {
                     input = editText() {
@@ -92,11 +112,14 @@ class HomeFragment : Fragment() {
                 yesButton {
                     CommonData.getInstance().setMyLocation(input?.text.toString())
                     val arguments = Bundle()
+                    arguments.putInt("searchType", 1)
                     arguments.putString("search", input?.text.toString())
-                    view.findNavController().navigate(R.id.action_homeFragment_to_overviewFragment, arguments)
+                    view.findNavController()
+                        .navigate(R.id.action_homeFragment_to_overviewFragment, arguments)
                 }
             }.show()
         }
+
         home_user_button.setOnClickListener {
             val acctoken = CommonData.getInstance().getAccountToken()
             if (acctoken.isNullOrBlank() || acctoken == "tourists") {
@@ -132,6 +155,7 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         CommonData.getInstance().setRouter(0)
     }
+
     fun setHomeFragmentData(value: Bundle) {
         homeFragmentData = value
     }
