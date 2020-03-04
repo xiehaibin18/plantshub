@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.databinding.UserLoggedFragmentBinding
+import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.viewModel.user.UserLoggedViewModel
 import kotlinx.android.synthetic.main.overview_cell.view.*
 import kotlinx.android.synthetic.main.user_logged_fragment.*
@@ -46,6 +47,7 @@ class UserLoggedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        CommonData.getInstance().setRouter(0)
         viewModel.userName.value ?: viewModel.getUserInfo()
         viewModel.userName.observe(this, Observer {
             user_logged_name.text = "${it}欢迎您"

@@ -111,7 +111,8 @@ data class AllPlantsDataItem(
     val plants_introduction: String?,
     val plants_picture: String?,
     val plants_distributions_uid: Any?,
-    val plants_like: Int?
+    val plants_like: Int?,
+    val type: Int?
 )
 
 data class UserInfoData(

@@ -72,7 +72,6 @@ class DetailFragment : androidx.fragment.app.DialogFragment() {
             detail_picture.setOnClickListener {
                 dismiss()
                 CommonData.getInstance().setRouterData(detailFragmentData)
-                CommonData.getInstance().setIsDialog(false)
                 CommonData.getInstance().setRouter(R.id.action_homeFragment_to_detailFragment)
                 startActivity<MainActivity>()
             }
@@ -83,12 +82,15 @@ class DetailFragment : androidx.fragment.app.DialogFragment() {
                 R.id.action_homeFragment_to_detailFragment -> {
                     CommonData.getInstance()
                         .setRouter(R.id.action_homeFragment_to_userLoggedFragment)
-                    viewModel.getDetailViewData(
-                        CommonData.getInstance().getRouterData().getInt("type", 400),
-                        CommonData.getInstance().getRouterData().getInt("itemUid", 400)
-                    )
+                }
+                1001 -> {
+                    CommonData.getInstance().setRouter(0)
                 }
             }
+            viewModel.getDetailViewData(
+                CommonData.getInstance().getRouterData().getInt("type", 400),
+                CommonData.getInstance().getRouterData().getInt("itemUid", 400)
+            )
         }
         // 实例化 Adapter
         val detailMessageAdapter = DetailMessageAdapter()
@@ -230,7 +232,8 @@ class DetailFragment : androidx.fragment.app.DialogFragment() {
                 )
                 info.putInt("type", detailFragmentData.getInt("type", 400))
                 senderDialog.receiverInfo(info)
-                senderDialog.show((context as AppCompatActivity).supportFragmentManager,
+                senderDialog.show(
+                    (context as AppCompatActivity).supportFragmentManager,
                     "DialogFragment"
                 )
             } else {

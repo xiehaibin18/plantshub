@@ -1,9 +1,11 @@
 package com.xiehaibin.plantshub.adapter
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,17 +16,65 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.model.data.AllPlantsDataItem
+import com.xiehaibin.plantshub.model.data.CommonData
+import com.xiehaibin.plantshub.view.fragment.HomeFragment
 import kotlinx.android.synthetic.main.overview_cell.view.*
+import okhttp3.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
+import java.io.IOException
 
-class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCALLBACK) {
+class OverviewAdapter : ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OverviewViewHolder {
         // 加载view
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.overview_cell, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.overview_cell, parent, false)
         // 创建holder
         val holder = OverviewViewHolder(view)
         // 点击事件
         holder.itemView.setOnClickListener {
+            CommonData.getInstance().setIsDialog(false)
+            val info = Bundle()
+            // 存放类型：0为植物，1为位置
+            info.putInt("type", getItem(holder.adapterPosition).type ?: 400)
+            // 存放id
+            info.putInt("itemUid", getItem(holder.adapterPosition).plants_uid)
+            CommonData.getInstance().setRouterData(info)
+            if (CommonData.getInstance().getRouter() == 1001){
+                parent.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+            } else {
+                parent.findNavController().navigate(R.id.action_overviewFragment_to_detailFragment)
+            }
+        }
+        holder.itemView.overview_cell_like_button.setOnClickListener {
+            doAsync {
+                val client = OkHttpClient()
+                val formBody = FormBody.Builder()
+                    .add("type", "PorLLike")
+                    .add("itemType", getItem(holder.adapterPosition).type.toString())
+                    .add("itemUid", getItem(holder.adapterPosition).plants_uid.toString())
+                    .build()
+                val request = Request.Builder()
+                    .url("http://192.168.0.105:3000/api/UserAddData")
+                    .post(formBody)
+                    .build()
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        uiThread { parent.context.toast("点赞失败，$e") }
+                    }
 
+                    override fun onResponse(call: Call, response: Response) {
+                        uiThread {
+                            parent.context.toast("点赞成功")
+                            val text = holder.itemView.overview_cell_like.text.toString()
+                            holder.itemView.overview_cell_like.text =
+                                Integer.parseInt(text).plus(1).toString()
+                        }
+                    }
+
+                })
+            }
         }
 
         return holder
@@ -68,7 +118,7 @@ class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCA
     }
 
     // 比较算法
-    private object DIFFCALLBACK: DiffUtil.ItemCallback<AllPlantsDataItem>() {
+    private object DIFFCALLBACK : DiffUtil.ItemCallback<AllPlantsDataItem>() {
         override fun areItemsTheSame(
             oldItem: AllPlantsDataItem,
             newItem: AllPlantsDataItem
@@ -86,4 +136,4 @@ class OverviewAdapter: ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFCA
     }
 }
 
-class OverviewViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+class OverviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
