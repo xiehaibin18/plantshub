@@ -1,10 +1,13 @@
 package com.xiehaibin.plantshub.view.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.set
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,10 +18,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.xiehaibin.plantshub.R
 import com.xiehaibin.plantshub.adapter.OverviewAdapter
 import com.xiehaibin.plantshub.databinding.HomeFragmentBinding
+import com.xiehaibin.plantshub.model.PictureRecognition
 import com.xiehaibin.plantshub.model.data.CommonData
+import com.xiehaibin.plantshub.util.Base64Util
 import com.xiehaibin.plantshub.view.activity.CameraActivity
+import com.xiehaibin.plantshub.view.fragment.dialog.PictureRecognitionDialog
 import com.xiehaibin.plantshub.viewModel.HomeViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
+import org.jetbrains.anko.*
 import org.jetbrains.anko.custom.customView
 import org.jetbrains.anko.customView
 import org.jetbrains.anko.editText
@@ -27,7 +34,7 @@ import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.find
 import org.jetbrains.anko.support.v4.startActivity
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.yesButton
+import java.lang.Exception
 
 
 class HomeFragment : Fragment() {
@@ -62,7 +69,15 @@ class HomeFragment : Fragment() {
         }
 
         home_identify_button.setOnClickListener {
-            startActivity<CameraActivity>()
+            alert ("点击确定使用摄像头，点击取消使用相册，点击空白返回", "是否使用摄像头选取图片？") {
+                yesButton { startActivity<CameraActivity>() }
+                noButton {
+                    val photoPickerIntent = Intent(Intent.ACTION_PICK)
+                    photoPickerIntent.type = "image/*"
+                    startActivityForResult(photoPickerIntent, 100)
+                }
+            }.show()
+
         }
 
         viewModel.searchText.observe(this, Observer {
@@ -149,6 +164,38 @@ class HomeFragment : Fragment() {
             toast(it)
         })
         viewModel.overviewData.value?.size ?: viewModel.getData()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 100){
+            try {
+                val inputStream = activity!!.contentResolver.openInputStream(data?.data)
+                val imgData = inputStream.readBytes()
+                val imgStr = Base64Util.encode(imgData)
+                doAsync {
+                    PictureRecognition().post(
+                        "client",
+                        imgStr,
+                        CommonData.getInstance().getPictureRecognitionUrl(),
+                        fun(err_code, msg, data) {
+                            uiThread {
+                                if (err_code == 0) {
+                                    val info = Bundle()
+                                    info.putString("data",data)
+                                    val pictureRecognitionDialog = PictureRecognitionDialog.newInstance()
+                                    pictureRecognitionDialog.setDialogData(info)
+                                    pictureRecognitionDialog.show((context as AppCompatActivity).supportFragmentManager,"pictureRecognitionDialog")
+                                } else {
+                                    toast("${err_code}:${msg}")
+                                }
+                            }
+                        })
+                }
+            } catch (e: Exception) {
+                toast("error:${e}")
+            }
+        }
     }
 
     override fun onDestroy() {
