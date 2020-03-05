@@ -75,8 +75,8 @@ class IndexViewModel(application: Application) : AndroidViewModel(application) {
         doAsync {
             getUserInfo.post(
                 "getUserInfo",
-                url,
                 accountToken,
+                url,
                 fun(err_code, msg) {
                     if (err_code != 0) {
                         uiThread {
