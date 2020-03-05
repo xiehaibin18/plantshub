@@ -37,8 +37,8 @@ class UserLoggedViewModel(application: Application) : AndroidViewModel(applicati
             doAsync {
                 getUserInfo.post(
                     "getUserInfo",
-                    url,
                     accountToken,
+                    url,
                     fun(err_code, msg) {
                         uiThread {
                             if (err_code == 0) {
