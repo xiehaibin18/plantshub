@@ -70,13 +70,13 @@ class CommonData private constructor() {
 
     fun getUserName(): String = userName
     // 用户头像
-    private var userAvatar: String = ""
+    private var userAvatar: String? = ""
 
     fun setUserAvatar(value: String) {
         userAvatar = value
     }
 
-    fun getUserAvatar(): String = userAvatar
+    fun getUserAvatar(): String = userAvatar ?: ""
     // Dialog
     private var isDialog: Boolean = false
 

@@ -44,7 +44,7 @@ class GetUserInfo {
                     val userInfoData =
                         Gson().fromJson(response.body!!.string(), UserInfoData::class.java)
                     CommonData.getInstance().setUserName(userInfoData.data!![0].name!!)
-                    CommonData.getInstance().setUserAvatar("${CommonData.getInstance().baseUrl}${userInfoData.data!![0].avatar!!}")
+                    CommonData.getInstance().setUserAvatar("${CommonData.getInstance().baseUrl}${userInfoData.data!![0].avatar?:""}")
                     _callback(0, "ok")
                 } catch (e: Exception) {
                     _callback(500, "$e")

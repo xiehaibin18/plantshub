@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.1" />
+                app:layout_constraintGuide_percent="0.5" />
 
             <ImageButton
                 android:id="@+id/home_identify_button"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.1" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -109,6 +109,7 @@
                         android:layout_marginStart="32dp"
                         android:background="@drawable/home_study_button_selector"
                         android:contentDescription="@string/home_study_button_contentDescription"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -117,11 +118,11 @@
                         android:id="@+id/home_user_button"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_marginEnd="32dp"
                         android:background="@drawable/home_user_button_selector"
                         android:contentDescription="@string/app_home_user_button_contentDescription"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/guideline41"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
@@ -131,9 +132,16 @@
                         android:background="@drawable/home_index_button_selector"
                         android:contentDescription="@string/app_home_index_button_contentDescription"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/home_user_button"
-                        app:layout_constraintStart_toEndOf="@+id/home_study_button"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline41"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline41"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
