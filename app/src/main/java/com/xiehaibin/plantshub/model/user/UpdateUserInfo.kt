@@ -9,16 +9,18 @@ class UpdateUserInfo {
     fun post(
         type: String,
         accountToken: String,
+        oldData: String?,
         data: String,
         url: String,
         callback: (err_code: Int, msg: String?) -> Unit
     ) {
-        _post(type, data, accountToken, url, callback)
+        _post(type, accountToken, oldData, data, url, callback)
     }
 
     private fun _post(
         _type: String,
         _accountToken: String,
+        _oldData: String?,
         _data: String,
         _url: String,
         _callback: (err_code: Int, msg: String?) -> Unit
@@ -30,7 +32,8 @@ class UpdateUserInfo {
         val formBody = FormBody.Builder()
             .add("type", _type)
             .add("accountToken", _accountToken)
-            .add("data", _data)
+            .add("oldData", _oldData ?: "")
+            .add("newData", _data)
             .build()
         val request = Request.Builder()
             .url(_url)

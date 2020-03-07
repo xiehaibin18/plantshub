@@ -30,7 +30,7 @@ class UserLoggedViewModel(application: Application) : AndroidViewModel(applicati
     fun getUserInfo() {
         userName.value = CommonData.getInstance().getUserName()
         userAvatar.value = CommonData.getInstance().getUserAvatar()
-        if (userName.value.isNullOrBlank()) {
+//        if (userName.value.isNullOrBlank()) {
             val accountToken = CommonData.getInstance().getAccountToken()
             val url = CommonData.getInstance().getUserInfoUrl()
             val getUserInfo = GetUserInfo()
@@ -49,7 +49,7 @@ class UserLoggedViewModel(application: Application) : AndroidViewModel(applicati
                             }
                         }
                     })
-            }
+//            }
         }
     }
 

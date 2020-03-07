@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import androidx.databinding.DataBindingUtil
@@ -29,11 +30,10 @@ import com.xiehaibin.plantshub.view.fragment.dialog.PictureRecognitionDialog
 import com.xiehaibin.plantshub.viewModel.user.UserLoggedViewModel
 import kotlinx.android.synthetic.main.overview_cell.view.*
 import kotlinx.android.synthetic.main.user_logged_fragment.*
-import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.*
+import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.support.v4.startActivityForResult
 import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
@@ -114,6 +114,37 @@ class UserLoggedFragment : Fragment() {
             photoPickerIntent.type = "image/*"
             startActivityForResult(photoPickerIntent, SELECT_PHOTO)
         }
+
+        user_logged_name.setOnClickListener {
+            alert("输入您的昵称，4-12位中英文", "修改昵称") {
+                var input: EditText? = null
+                customView {
+                    input = editText() {
+                        hint = "请输入完整的省/市级行政区名称"
+                    }
+                }
+                yesButton {
+                    doAsync {
+                        UpdateUserInfo().post(
+                            "UpdateUserInfo",
+                            CommonData.getInstance().getAccountToken(),
+                            "name=${CommonData.getInstance().getUserName()}",
+                            input?.text.toString(),
+                            CommonData.getInstance().baseUrl.plus("/api/UserAddData"),
+                            fun(err_code, msg) {
+                                uiThread {
+                                    if (err_code == 0) {
+                                        user_logged_name.text = input?.text.toString()
+                                        toast("修改成功")
+                                    } else {
+                                        toast("${err_code}:${msg}")
+                                    }
+                                }
+                            })
+                    }
+                }
+            }.show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -128,6 +159,7 @@ class UserLoggedFragment : Fragment() {
                     UpdateUserInfo().post(
                         "UpdateUserInfo",
                         CommonData.getInstance().getAccountToken(),
+                        "avatar=${CommonData.getInstance().getUserAvatar()}",
                         imgStr,
                         CommonData.getInstance().baseUrl.plus("/api/UserAddData"),
                         fun(err_code, msg) {
