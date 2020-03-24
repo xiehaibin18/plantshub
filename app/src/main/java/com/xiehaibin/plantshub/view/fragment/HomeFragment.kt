@@ -143,6 +143,9 @@ class HomeFragment : Fragment() {
                 it.findNavController().navigate(R.id.action_homeFragment_to_userLoggedFragment)
             }
         }
+        home_study_button.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
         // swiperRefreshLayout
         home_swiperRefreshLayout.setOnRefreshListener {
             viewModel.getData()

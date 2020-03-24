@@ -60,7 +60,7 @@ class OverviewAdapter : ListAdapter<AllPlantsDataItem, OverviewViewHolder>(DIFFC
                         .add("itemUid", getItem(holder.adapterPosition).plants_uid.toString())
                         .build()
                     val request = Request.Builder()
-                        .url("http://192.168.0.105:3000/api/UserAddData")
+                        .url(CommonData.getInstance().baseUrl.plus("/api/UserAddData"))
                         .post(formBody)
                         .build()
                     client.newCall(request).enqueue(object : Callback {

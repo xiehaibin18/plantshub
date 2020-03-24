@@ -13,7 +13,7 @@ class CommonData private constructor() {
 
     // baseUrl
 //    private var baseUrl: String = "http://10.0.2.2:3000"
-    var baseUrl: String = "http://192.168.0.105:3000"
+    var baseUrl: String = "http://192.168.0.102:3000"
 
     // 获取验证AccountToken的url
     fun getChkAccountTokenUrl() = baseUrl.plus("/api/CheckAccountToken")

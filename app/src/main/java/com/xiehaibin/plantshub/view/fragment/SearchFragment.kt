@@ -6,11 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 
 import com.xiehaibin.plantshub.R
+import com.xiehaibin.plantshub.adapter.StudyAdapter
+import com.xiehaibin.plantshub.model.data.AllPlantsDataItem
+import com.xiehaibin.plantshub.model.data.CommonData
 import com.xiehaibin.plantshub.viewModel.SearchViewModel
 import kotlinx.android.synthetic.main.search_fragment.*
+import org.jetbrains.anko.support.v4.toast
 
 class SearchFragment : Fragment() {
 
@@ -29,9 +35,27 @@ class SearchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        search_button.setOnClickListener {
-            it.findNavController().navigate(R.id.action_searchFragment_to_overviewFragment)
+        // 实例化OverviewAdapter
+        val studyAdapter = StudyAdapter()
+        // recyclerView设置
+        study_recyclerView.apply {
+            adapter = studyAdapter
+            layoutManager = GridLayoutManager(requireContext(), 1)
         }
+        viewModel.overviewData.observe(this, Observer {
+            // 提交数据给OverviewAdapter
+            studyAdapter.submitList(it as MutableList<AllPlantsDataItem>?)
+            study_swiperRefreshLayout.isRefreshing = false
+        })
+        viewModel.getOverviewData()
+        study_swiperRefreshLayout.setOnRefreshListener {
+            viewModel.getOverviewData()
+            study_swiperRefreshLayout.isRefreshing = false
+        }
+        viewModel.message.observe(this, Observer {
+            toast(it)
+        })
+        CommonData.getInstance().setRouter(0)
     }
 
 }
