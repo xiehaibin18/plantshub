@@ -162,6 +162,7 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                             camera_imageView.isVisible = true
                             camera_upload_button.isVisible = true
                             camera_cancel_button.isVisible = true
+                            camera_unknown_button.isVisible = true
                             if (CommonData.getInstance().getPath().isNotEmpty()) {
                                 var myBitmap: Bitmap =
                                     BitmapFactory.decodeFile(CommonData.getInstance().getPath())
@@ -190,11 +191,13 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
             camera_imageView.isVisible = false
             camera_upload_button.isVisible = false
             camera_cancel_button.isVisible = false
+            camera_unknown_button.isVisible = false
         }
 
         camera_upload_button.setOnClickListener {
             camera_upload_button.isEnabled = false
             camera_cancel_button.isEnabled = false
+            camera_unknown_button.isEnabled = false
             try {
                 val filePath = CommonData.getInstance().getPath()
                 val imgData = FileUtil.readFileByBytes(filePath)
@@ -208,6 +211,7 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
                             uiThread {
                                 camera_upload_button.isEnabled = true
                                 camera_cancel_button.isEnabled = true
+                                camera_unknown_button.isEnabled = true
                                 if (err_code == 0) {
 //                                    startActivity<MainActivity>(
 //                                        "err_code" to err_code,
@@ -229,6 +233,36 @@ class CameraActivity : AppCompatActivity(), LifecycleOwner {
             }
 
         }
+
+        camera_unknown_button.setOnClickListener {
+            camera_upload_button.isEnabled = false
+            camera_cancel_button.isEnabled = false
+            camera_unknown_button.isEnabled = false
+            try {
+                val filePath = CommonData.getInstance().getPath()
+                val imgData = FileUtil.readFileByBytes(filePath)
+                val imgStr = Base64Util.encode(imgData)
+                doAsync {
+                    PictureRecognition().post(
+                        "unknown",
+                        imgStr,
+                        CommonData.getInstance().getPictureRecognitionUrl(),
+                        fun(err_code, msg, data) {
+                            uiThread {
+                                camera_upload_button.isEnabled = true
+                                camera_cancel_button.isEnabled = true
+                                camera_unknown_button.isEnabled = true
+                                if (err_code != 0) {
+                                    toast("${err_code}:${msg}")
+                                }
+                            }
+                        })
+                }
+            } catch (e: Exception) {
+                toast("error:${e}")
+            }
+        }
+
     }
 
     private fun updateTransform() {
